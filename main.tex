@@ -128,13 +128,13 @@ Manual annotation assigned each retained image to one of two classes. The negati
 \subsection{Data Augmentation}
 Training-time augmentation was used to improve generalization without changing the held-out evaluation data. The augmentation operations include random resized cropping, horizontal flipping, small-angle rotation up to 15 degrees, and color jitter for brightness, contrast, and saturation. These transformations simulate common roadside imaging variation while preserving the class label \cite{shorten2019augmentation}.
 
-All images were standardized before model-specific processing. Each image was orientation-corrected, converted to RGB, resized so that the shorter side measured 512 pixels, center-cropped to a square 512 by 512 resolution, and saved as a lossless PNG. Classical models then used grayscale 128 by 128 inputs for HOG extraction, while the CNN used 128 by 128 RGB inputs. The dataset is available online at \url{https://drive.google.com/drive/folders/1D3jDBvA-cAhwRPA4wUBUss5zlwdXdLJY}.
+All images were standardized before model-specific processing. The standardized preprocessing and model input settings are summarized in Table~\ref{tab:model_config}. The dataset is available online at \url{https://drive.google.com/drive/folders/1D3jDBvA-cAhwRPA4wUBUss5zlwdXdLJY}.
 
 \subsection{Ethical Considerations}
 The dataset is used for academic safety-monitoring research. The work focuses on classifying transport safety conditions rather than identifying individuals. No personal identity recognition is performed. Future real-world deployment would require privacy protection, data governance, and compliance with relevant regulations.
 
 \section{Methodology}
-The proposed system is a binary image-classification pipeline for public transport safety assessment. The workflow consists of dataset preparation, preprocessing, feature extraction or model-specific input preparation, model training, and evaluation. HOG-based classical models receive handcrafted gradient features, while the CNN receives resized RGB images directly.
+The proposed system is a binary image-classification pipeline for public transport safety assessment. The workflow consists of dataset preparation, preprocessing, feature extraction or model-specific input preparation, model training, and evaluation. HOG-based classical models receive handcrafted gradient features, while the CNN learns features directly from image tensors. Implementation settings are summarized in Table~\ref{tab:model_config}.
 
 \subsection{Pipeline Overview}
 The pipeline begins with Dhaka bus and leguna image collection, followed by cleaning, annotation, augmentation, and standardization. Classical machine-learning models use HOG feature vectors extracted from grayscale inputs. The CNN learns spatial features from RGB tensors. All models are evaluated on the same held-out split using standard classification metrics.
@@ -146,21 +146,16 @@ The pipeline begins with Dhaka bus and leguna image collection, followed by clea
     \label{fig:arch_svm}
 \end{figure}
 
-\subsection{HOG Feature Representation}
-For the classical models, Histogram of Oriented Gradients (HOG) descriptors were extracted from grayscale images \cite{dalal2005hog}. HOG captures local gradient orientation and edge-structure information, which is useful for posture-, shape-, and boundary-related visual classification. With 9 orientation bins, $16 \times 16$ pixel cells, and $2 \times 2$ cell blocks normalized using the L2-Hys scheme, each $128 \times 128$ image is represented by
-\[
-7 \times 7 \times 2 \times 2 \times 9 = 1764
-\]
-features. Feature extraction was implemented with scikit-image \cite{vanderwalt2014skimage}.
+\subsection{HOG-Based Feature Representation}
+For the classical models, Histogram of Oriented Gradients (HOG) descriptors were extracted from grayscale images \cite{dalal2005hog}. HOG captures local gradient orientation and edge-structure information, which is useful for posture-, shape-, and boundary-related visual classification. Feature extraction was implemented with scikit-image \cite{vanderwalt2014skimage}; the exact extraction settings are listed in Table~\ref{tab:model_config}.
 
-\subsection{Logistic Regression}
-Logistic Regression provides a linear probabilistic baseline in the HOG feature space. It estimates the posterior probability of the positive class as
+\subsection{Classical Machine Learning Models}
+The classical baselines use HOG features with three complementary classifiers. Logistic Regression provides a linear probabilistic baseline in the HOG feature space. It estimates the posterior probability of the positive class as
 \[
 P(y=1 \mid x) = \frac{1}{1 + e^{-w^{\top} x}} .
 \]
 The model is computationally efficient and interpretable, but its linear decision boundary can be limited when safe and unsafe samples are not linearly separable.
 
-\subsection{Gaussian Naive Bayes}
 Gaussian Naive Bayes is a probabilistic baseline that assumes conditional independence among features given the class label. Each feature is modeled with a Gaussian likelihood,
 \[
 P(x_i \mid y) = \mathcal{N}(\mu_y, \sigma_y^2),
@@ -171,15 +166,14 @@ P(y \mid x) \propto P(y) \prod_i P(x_i \mid y).
 \]
 Although the independence assumption is restrictive for correlated HOG features, the model is useful as a simple low-complexity comparator.
 
-\subsection{Support Vector Machine with RBF Kernel}
 The Support Vector Machine (SVM) seeks a maximum-margin boundary between the negative and positive classes \cite{cortes1995svm}. The radial basis function (RBF) kernel handles non-linear separation in the HOG feature space through
 \[
 K(x_i, x_j) = \exp\!\left(-\gamma \lVert x_i - x_j \rVert^2\right).
 \]
-This kernel allows samples with similar HOG patterns to influence the decision function even when a linear boundary is insufficient.
+This kernel allows samples with similar HOG patterns to influence the decision function even when a linear boundary is insufficient. The implementation settings for all three classical models are summarized in Table~\ref{tab:model_config}.
 
 \subsection{Convolutional Neural Network}
-The CNN processes RGB images directly and learns spatial features from the training data \cite{krizhevsky2012alexnet}. The architecture consists of four convolutional blocks with batch normalization, ReLU activations, and max pooling, followed by global average pooling and a fully connected classification head with dropout \cite{ioffe2015batchnorm}, \cite{srivastava2014dropout}. It maps a $128 \times 128$ RGB input to two output logits corresponding to the negative and positive classes. The network contains 1{,}206{,}370 trainable parameters and is shown in Fig.~\ref{fig:arch_cnn}.
+The CNN processes RGB images directly and learns spatial features from the training data \cite{krizhevsky2012alexnet}. The architecture uses convolutional feature extraction with batch normalization, ReLU activations, pooling, and a fully connected classification head with dropout \cite{ioffe2015batchnorm}, \cite{srivastava2014dropout}. It maps image inputs to two output logits corresponding to the negative and positive classes. The architecture is shown in Fig.~\ref{fig:arch_cnn}, and its configuration is summarized in Table~\ref{tab:model_config}.
 
 \begin{figure}[!t]
     \centering
@@ -190,35 +184,38 @@ The CNN processes RGB images directly and learns spatial features from the train
 
 \section{Experimental Setup}
 \subsection{Split Protocol}
-The data split followed a stratified, group-aware 80/20 protocol to prevent augmented-data leakage. Images derived from the same source or augmentation group were kept within the same partition. The split produced 319 training images and 80 held-out test images, including 53 negative samples and 27 positive samples in the test set. Classical model hyperparameters were selected by 5-fold cross-validation on the training set only, and the test set was reserved for final evaluation.
+The data split followed a stratified, group-aware protocol to prevent augmented-data leakage. Images derived from the same source or augmentation group were kept within the same partition. Classical model hyperparameters were selected by cross-validation on the training set only, and the test set was reserved for final evaluation. Exact split and validation settings are summarized in Table~\ref{tab:model_config}.
 
-\subsection{Training Configuration}
-The experiments were implemented in Python using scikit-learn for the classical pipelines \cite{pedregosa2011sklearn}, PyTorch for the neural model \cite{paszke2019pytorch}, and scikit-image for image processing \cite{vanderwalt2014skimage}. A fixed random seed of 42 was used for reproducibility. Table~\ref{tab:hyperparams} reports the model configuration details already used in the experiments.
+\subsection{Model Configuration}
+The experiments were implemented in Python using scikit-learn for the classical pipelines \cite{pedregosa2011sklearn}, PyTorch for the neural model \cite{paszke2019pytorch}, and scikit-image for image processing \cite{vanderwalt2014skimage}. A fixed random seed of 42 was used for reproducibility. Table~\ref{tab:model_config} reports the model configuration details already used in the experiments.
 
 \begin{table*}[!t]
 \centering
 \caption{Model Configuration}
-\label{tab:hyperparams}
-\small
+\label{tab:model_config}
+\footnotesize
 \begin{tabularx}{\textwidth}{l l X}
 \toprule
-\textbf{Model} & \textbf{Input Representation} & \textbf{Key Configuration} \\
+\textbf{Model / Stage} & \textbf{Input Representation} & \textbf{Key Configuration} \\
 \midrule
-Logistic Regression & HOG (1764-d) & StandardScaler, PCA (95\% var), L2 penalty, \texttt{lbfgs}, $C=10$, balanced class weights, 5-fold CV. \\
-Gaussian Naive Bayes & HOG (1764-d) & StandardScaler, PCA (90\% var), var.\ smoothing $10^{-3}$, empirical priors, 5-fold CV. \\
-SVM (RBF) & HOG (1764-d) & StandardScaler, PCA (95\% var), $C=4$, $\gamma=0.001$, balanced class weights, 5-fold CV. \\
-CNN & RGB $128\times128$ & 4 conv blocks, GAP, FC head, dropout 0.3, AdamW (lr $10^{-3}$, weight decay $10^{-4}$), batch 32, 30 epochs, cosine LR, class-weighted cross-entropy, label smoothing 0.05. \\
+Image standardization & Source images & Orientation correction, RGB conversion, shorter side 512 px, center crop to $512\times512$, PNG output. \\
+HOG feature extraction & Grayscale $128\times128$ & 9 orientation bins, $16\times16$ pixel cells, $2\times2$ cell blocks, L2-Hys normalization, 1764-d feature vector. \\
+Logistic Regression & HOG features & StandardScaler, PCA (95\% var), L2 penalty, \texttt{lbfgs}, $C=10$, balanced class weights, 5-fold CV. \\
+Gaussian Naive Bayes & HOG features & StandardScaler, PCA (90\% var), var.\ smoothing $10^{-3}$, empirical priors, 5-fold CV. \\
+SVM with RBF kernel & HOG features & StandardScaler, PCA (95\% var), $C=4$, $\gamma=0.001$, balanced class weights, 5-fold CV, probability estimates enabled. \\
+CNN & RGB $128\times128$ & 4 conv blocks, 1{,}206{,}370 trainable parameters, GAP, FC head, dropout 0.3, AdamW (lr $10^{-3}$, weight decay $10^{-4}$), batch 32, 30 epochs, cosine LR, class-weighted cross-entropy, label smoothing 0.05. \\
+Evaluation protocol & Train/test split & Stratified group-aware 80/20 split, 319 training images, 80 test images, 53 negative and 27 positive test samples. \\
 \bottomrule
 \end{tabularx}
 \end{table*}
 
-For HOG-based models, features were standardized with a \texttt{StandardScaler} fitted on the training data and then applied to validation folds and the test set. PCA was used in the classical pipelines where reported in Table~\ref{tab:hyperparams}. The CNN used normalized RGB image tensors rather than HOG descriptors, StandardScaler, or PCA.
+For HOG-based models, preprocessing and dimensionality-reduction settings were fitted on the training data and then applied to validation folds and the test set. The CNN used normalized RGB image tensors rather than HOG descriptors. These settings are summarized in Table~\ref{tab:model_config}.
 
-The CNN was trained with class-weighted cross-entropy and label smoothing using the configuration summarized in Table~\ref{tab:hyperparams}. Given logits $z \in \mathbb{R}^{2}$, class probabilities are computed by
+The CNN was trained using the configuration summarized in Table~\ref{tab:model_config}. Given logits $z \in \mathbb{R}^{2}$, class probabilities are computed by
 \[
 p_k = \frac{e^{z_k}}{\sum_{j=0}^{1} e^{z_j}}, \qquad k \in \{0, 1\}.
 \]
-The loss was minimized with AdamW under a cosine-annealing learning-rate schedule \cite{kingma2015adam}.
+The training optimizer and schedule are listed in Table~\ref{tab:model_config} \cite{kingma2015adam}.
 
 \subsection{Evaluation Metrics}
 Evaluation used accuracy, precision, recall, F1-score, confusion matrices, ROC curves, and AUC. Learning curves were used where applicable to inspect neural-model training behavior. Let $TP$, $TN$, $FP$, and $FN$ denote true positives, true negatives, false positives, and false negatives, with the positive class corresponding to unsafe/risky hanging travel. The scalar metrics are

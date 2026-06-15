@@ -37,6 +37,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Data Augmentation}{2}{subsection.3.4}\protected@file@percent }
 \citation{dalal2005hog}
 \citation{vanderwalt2014skimage}
+\citation{cortes1995svm}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representative annotation examples.}}{3}{figure.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Safe/normal annotation.}}}{3}{subfigure.4.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Unsafe/risky annotation.}}}{3}{subfigure.4.2}\protected@file@percent }
@@ -45,13 +46,11 @@
 \newlabel{fig:annotation_samples}{{4}{3}{Representative annotation examples}{figure.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Ethical Considerations}{3}{subsection.3.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Methodology}{3}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Pipeline Overview}{3}{subsection.4.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Overview of the HOG-based classical machine-learning pipeline.}}{3}{figure.5}\protected@file@percent }
 \newlabel{fig:arch_svm}{{5}{3}{Overview of the HOG-based classical machine-learning pipeline}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Pipeline Overview}{3}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}HOG Feature Representation}{3}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Logistic Regression}{3}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Gaussian Naive Bayes}{3}{subsection.4.4}\protected@file@percent }
-\citation{cortes1995svm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}HOG-Based Feature Representation}{3}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Classical Machine Learning Models}{3}{subsection.4.3}\protected@file@percent }
 \citation{krizhevsky2012alexnet}
 \citation{ioffe2015batchnorm}
 \citation{srivastava2014dropout}
@@ -61,47 +60,46 @@
 \citation{kingma2015adam}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces CNN architecture used for image-level binary classification.}}{4}{figure.6}\protected@file@percent }
 \newlabel{fig:arch_cnn}{{6}{4}{CNN architecture used for image-level binary classification}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}Support Vector Machine with RBF Kernel}{4}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Convolutional Neural Network}{4}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Convolutional Neural Network}{4}{subsection.4.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {V}Experimental Setup}{4}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Split Protocol}{4}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Training Configuration}{4}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Model Configuration}{4}{subsection.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Evaluation Metrics}{4}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Results}{4}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Quantitative Comparison}{4}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Confusion Matrix Analysis}{4}{subsection.6.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Model Configuration}}{5}{table.1}\protected@file@percent }
-\newlabel{tab:hyperparams}{{I}{5}{Model Configuration}{table.1}{}}
+\newlabel{tab:model_config}{{I}{5}{Model Configuration}{table.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Test-set performance for the four reported models.}}{5}{table.2}\protected@file@percent }
 \newlabel{tab:comparison}{{II}{5}{Test-set performance for the four reported models}{table.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Accuracy and AUC comparison for the four reported models.}}{5}{figure.7}\protected@file@percent }
 \newlabel{fig:model_comparison}{{7}{5}{Accuracy and AUC comparison for the four reported models}{figure.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Results}{5}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Quantitative Comparison}{5}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Confusion Matrix Analysis}{5}{subsection.6.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.8}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Logistic Regression.}}}{5}{subfigure.8.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Gaussian Naive Bayes.}}}{5}{subfigure.8.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {SVM with RBF kernel.}}}{5}{subfigure.8.3}\protected@file@percent }
 \newlabel{fig:cm_classical}{{8}{5}{Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{5}{subsection.6.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.9}\protected@file@percent }
 \newlabel{fig:cm_cnn}{{9}{5}{Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces CNN training and test learning curves.}}{5}{figure.10}\protected@file@percent }
 \newlabel{fig:curves_cnn}{{10}{5}{CNN training and test learning curves}{figure.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{5}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Error Analysis}{5}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion}{5}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Interpretation of Results}{5}{subsection.7.1}\protected@file@percent }
 \citation{redmon2016yolo}
 \bibcite{dilek2023cvits}{1}
 \bibcite{hsu2020passenger}{2}
 \bibcite{hossain2018bus}{3}
 \bibcite{crowding2023review}{4}
 \bibcite{wastupranata2024abnormal}{5}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Error Analysis}{6}{subsection.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion}{6}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Interpretation of Results}{6}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Limitations}{6}{subsection.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{6}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{6}{section*.1}\protected@file@percent }
 \bibcite{redmon2016yolo}{6}
 \bibcite{yolo2024boarding}{7}
 \bibcite{anagnostopoulos2008license}{8}
 \bibcite{silva2018license}{9}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Limitations}{6}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{6}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{6}{section*.1}\protected@file@percent }
 \bibcite{du2013automatic}{10}
 \bibcite{afrin2023bengali}{11}
 \bibcite{shorten2019augmentation}{12}
