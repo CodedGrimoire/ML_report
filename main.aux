@@ -24,6 +24,7 @@
 \newlabel{fig:eda}{{1}{2}{Exploratory summary of the collected dataset}{figure.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Dataset}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Data Collection}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Data Cleaning}{2}{subsection.3.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Representative leguna samples.}}{2}{figure.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Negative class.}}}{2}{subfigure.2.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Positive class.}}}{2}{subfigure.2.2}\protected@file@percent }
@@ -32,9 +33,9 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Negative class.}}}{2}{subfigure.3.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Positive class.}}}{2}{subfigure.3.2}\protected@file@percent }
 \newlabel{fig:bus_samples}{{3}{2}{Representative bus samples}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Data Cleaning}{2}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Data Annotation}{2}{subsection.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Data Augmentation}{2}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Ethical Considerations}{2}{subsection.3.5}\protected@file@percent }
 \citation{dalal2005hog}
 \citation{vanderwalt2014skimage}
 \citation{cortes1995svm}
@@ -44,7 +45,6 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {License-plate annotation.}}}{3}{subfigure.4.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {Combined annotation.}}}{3}{subfigure.4.4}\protected@file@percent }
 \newlabel{fig:annotation_samples}{{4}{3}{Representative annotation examples}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Ethical Considerations}{3}{subsection.3.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Methodology}{3}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Pipeline Overview}{3}{subsection.4.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Overview of the HOG-based classical machine-learning pipeline.}}{3}{figure.5}\protected@file@percent }
@@ -68,23 +68,23 @@
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Results}{4}{section.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Quantitative Comparison}{4}{subsection.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Confusion Matrix Analysis}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{4}{subsection.6.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Model Configuration}}{5}{table.1}\protected@file@percent }
 \newlabel{tab:model_config}{{I}{5}{Model Configuration}{table.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Test-set performance for the four reported models.}}{5}{table.2}\protected@file@percent }
 \newlabel{tab:comparison}{{II}{5}{Test-set performance for the four reported models}{table.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Accuracy and AUC comparison for the four reported models.}}{5}{figure.7}\protected@file@percent }
-\newlabel{fig:model_comparison}{{7}{5}{Accuracy and AUC comparison for the four reported models}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Logistic Regression.}}}{5}{subfigure.8.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Gaussian Naive Bayes.}}}{5}{subfigure.8.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {SVM with RBF kernel.}}}{5}{subfigure.8.3}\protected@file@percent }
-\newlabel{fig:cm_classical}{{8}{5}{Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{5}{subsection.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.9}\protected@file@percent }
-\newlabel{fig:cm_cnn}{{9}{5}{Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces CNN training and test learning curves.}}{5}{figure.10}\protected@file@percent }
-\newlabel{fig:curves_cnn}{{10}{5}{CNN training and test learning curves}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Logistic Regression.}}}{5}{subfigure.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Gaussian Naive Bayes.}}}{5}{subfigure.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {SVM with RBF kernel.}}}{5}{subfigure.7.3}\protected@file@percent }
+\newlabel{fig:cm_classical}{{7}{5}{Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky.}}{5}{figure.8}\protected@file@percent }
+\newlabel{fig:cm_cnn}{{8}{5}{Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky}{figure.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Error Analysis}{5}{subsection.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces CNN training and test learning curves.}}{5}{figure.9}\protected@file@percent }
+\newlabel{fig:curves_cnn}{{9}{5}{CNN training and test learning curves}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces ROC curves for the four reported models on the held-out test set.}}{5}{figure.10}\protected@file@percent }
+\newlabel{fig:roc_four_models}{{10}{5}{ROC curves for the four reported models on the held-out test set}{figure.10}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion}{5}{section.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Interpretation of Results}{5}{subsection.7.1}\protected@file@percent }
 \citation{redmon2016yolo}
@@ -96,10 +96,16 @@
 \bibcite{redmon2016yolo}{6}
 \bibcite{yolo2024boarding}{7}
 \bibcite{anagnostopoulos2008license}{8}
-\bibcite{silva2018license}{9}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Placeholder for representative misclassified samples, emphasizing false negatives.}}{6}{figure.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {False negative.}}}{6}{subfigure.11.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {False negative.}}}{6}{subfigure.11.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {False positive.}}}{6}{subfigure.11.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {False positive.}}}{6}{subfigure.11.4}\protected@file@percent }
+\newlabel{fig:error_placeholder}{{11}{6}{Placeholder for representative misclassified samples, emphasizing false negatives}{figure.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Limitations}{6}{subsection.7.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{6}{section.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{References}{6}{section*.1}\protected@file@percent }
+\bibcite{silva2018license}{9}
 \bibcite{du2013automatic}{10}
 \bibcite{afrin2023bengali}{11}
 \bibcite{shorten2019augmentation}{12}

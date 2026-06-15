@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  15 JUN 2026 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  15 JUN 2026 17:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -929,9 +929,8 @@ Package hyperref Info: Link coloring OFF on input line 31.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-
-
 LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -948,59 +947,61 @@ Underfull \hbox (badness 6758) in paragraph at lines 52--53
 
 
 
+
+
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
 ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-<eda_vehicle_label.png, id=143, 528.47438pt x 371.73882pt>
+<eda_vehicle_label.png, id=147, 528.47438pt x 371.73882pt>
 File: eda_vehicle_label.png Graphic file (type png)
 <use eda_vehicle_label.png>
 Package pdftex.def Info: eda_vehicle_label.png  used on input line 74.
 (pdftex.def)             Requested size: 120.95892pt x 85.08405pt.
-<eda_label_pie.png, id=145, 411.03563pt x 431.81325pt>
+<eda_label_pie.png, id=149, 411.03563pt x 431.81325pt>
 File: eda_label_pie.png Graphic file (type png)
 <use eda_label_pie.png>
 Package pdftex.def Info: eda_label_pie.png  used on input line 76.
 (pdftex.def)             Requested size: 120.95892pt x 127.07411pt.
-<eda_resolution.png, id=146, 598.03426pt x 399.74344pt>
+<eda_resolution.png, id=150, 598.03426pt x 399.74344pt>
 File: eda_resolution.png Graphic file (type png)
 <use eda_resolution.png>
 Package pdftex.def Info: eda_resolution.png  used on input line 80.
 (pdftex.def)             Requested size: 120.95892pt x 80.85pt.
-<eda_gps.png, id=147, 1505.625pt x 1292.83pt>
+<eda_gps.png, id=151, 1505.625pt x 1292.83pt>
 File: eda_gps.png Graphic file (type png)
 <use eda_gps.png>
 Package pdftex.def Info: eda_gps.png  used on input line 82.
 (pdftex.def)             Requested size: 120.95892pt x 103.8625pt.
-<leguna_negative.png, id=150, 1129.21875pt x 1505.625pt>
+<leguna_negative.png, id=154, 1129.21875pt x 1505.625pt>
 File: leguna_negative.png Graphic file (type png)
 <use leguna_negative.png>
 Package pdftex.def Info: leguna_negative.png  used on input line 91.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<leguna_positive.png, id=151, 1129.21875pt x 1505.625pt>
+<leguna_positive.png, id=155, 1129.21875pt x 1505.625pt>
 File: leguna_positive.png Graphic file (type png)
 <use leguna_positive.png>
 Package pdftex.def Info: leguna_positive.png  used on input line 93.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<bus_negative.png, id=152, 1129.21875pt x 1505.625pt>
+<bus_negative.png, id=156, 1129.21875pt x 1505.625pt>
 File: bus_negative.png Graphic file (type png)
 <use bus_negative.png>
 Package pdftex.def Info: bus_negative.png  used on input line 100.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<bus_positive.png, id=153, 1129.21875pt x 1505.625pt>
+<bus_positive.png, id=157, 1129.21875pt x 1505.625pt>
 File: bus_positive.png Graphic file (type png)
 <use bus_positive.png>
 Package pdftex.def Info: bus_positive.png  used on input line 102.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
 
 
-<annotation_1.jpeg, id=155, 943.525pt x 1254.6875pt>
+<annotation_1.jpeg, id=159, 943.525pt x 1254.6875pt>
 File: annotation_1.jpeg Graphic file (type jpg)
 <use annotation_1.jpeg>
 Package pdftex.def Info: annotation_1.jpeg  used on input line 115.
 (pdftex.def)             Requested size: 88.20154pt x 117.28204pt.
-<annotation_2.jpeg, id=156, 939.51pt x 1250.6725pt>
+<annotation_2.jpeg, id=160, 939.51pt x 1250.6725pt>
 File: annotation_2.jpeg Graphic file (type jpg)
 <use annotation_2.jpeg>
 Package pdftex.def Info: annotation_2.jpeg  used on input line 117.
@@ -1010,7 +1011,7 @@ Underfull \hbox (badness 4467) in paragraph at lines 117--117
 []\OT1/ptm/m/n/8 (b) |Un-safe/risky an-no-ta-
  []
 
-<annotation_3.png, id=157, 712.6625pt x 1254.6875pt>
+<annotation_3.png, id=161, 712.6625pt x 1254.6875pt>
 File: annotation_3.png Graphic file (type png)
 <use annotation_3.png>
 Package pdftex.def Info: annotation_3.png  used on input line 121.
@@ -1020,7 +1021,7 @@ Underfull \hbox (badness 2111) in paragraph at lines 121--121
 []\OT1/ptm/m/n/8 (c) |License-plate an-no-ta-
  []
 
-<annotation_4.png, id=158, 710.655pt x 1252.68pt>
+<annotation_4.png, id=162, 710.655pt x 1252.68pt>
 File: annotation_4.png Graphic file (type png)
 <use annotation_4.png>
 Package pdftex.def Info: annotation_4.png  used on input line 123.
@@ -1030,13 +1031,13 @@ Package pdftex.def Info: annotation_4.png  used on input line 123.
 [2 <./eda_vehicle_label.png> <./eda_label_pie.png> <./eda_resolution.png> <./ed
 a_gps.png (PNG copy)> <./leguna_negative.png> <./leguna_positive.png> <./bus_ne
 gative.png> <./bus_positive.png>]
-Underfull \hbox (badness 1975) in paragraph at lines 137--138
-[]\OT1/ptm/m/n/10 The pro-posed sys-tem is a bi-nary image-classification
+Underfull \hbox (badness 1484) in paragraph at lines 137--138
+[]\OT1/ptm/m/n/10 The pro-posed method is a bi-nary image-classification
  []
 
 
 
-<arch_svm.png, id=188, 742.4538pt x 363.759pt>
+<arch_svm.png, id=191, 742.4538pt x 363.759pt>
 File: arch_svm.png Graphic file (type png)
 <use arch_svm.png>
 Package pdftex.def Info: arch_svm.png  used on input line 144.
@@ -1051,49 +1052,51 @@ File: arch_cnn.png Graphic file (type png)
 Package pdftex.def Info: arch_cnn.png  used on input line 180.
 (pdftex.def)             Requested size: 252.0pt x 306.12439pt.
 
-
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd)
-Package pgfplots info on input line 275: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
-<cm_logistic.png, id=235, 361.35pt x 289.08pt>
+
+<cm_logistic.png, id=233, 361.35pt x 289.08pt>
 File: cm_logistic.png Graphic file (type png)
 <use cm_logistic.png>
-Package pdftex.def Info: cm_logistic.png  used on input line 290.
+Package pdftex.def Info: cm_logistic.png  used on input line 260.
 (pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
-<cm_nb.png, id=236, 361.35pt x 289.08pt>
+<cm_nb.png, id=234, 361.35pt x 289.08pt>
 File: cm_nb.png Graphic file (type png)
 <use cm_nb.png>
-Package pdftex.def Info: cm_nb.png  used on input line 292.
+Package pdftex.def Info: cm_nb.png  used on input line 262.
 (pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--292
+Underfull \hbox (badness 10000) in paragraph at lines 262--262
 []\OT1/ptm/m/n/8 (b) |Gaus-sian Naive
  []
 
-<cm_svm.png, id=237, 361.35pt x 289.08pt>
+<cm_svm.png, id=235, 361.35pt x 289.08pt>
 File: cm_svm.png Graphic file (type png)
 <use cm_svm.png>
-Package pdftex.def Info: cm_svm.png  used on input line 294.
+Package pdftex.def Info: cm_svm.png  used on input line 264.
 (pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
+<cm_cnn.png, id=236, 361.35pt x 289.08pt>
+File: cm_cnn.png Graphic file (type png)
+<use cm_cnn.png>
+Package pdftex.def Info: cm_cnn.png  used on input line 271.
+(pdftex.def)             Requested size: 181.4403pt x 145.15277pt.
+<curves_cnn.png, id=237, 867.24pt x 289.08pt>
+File: curves_cnn.png Graphic file (type png)
+<use curves_cnn.png>
+Package pdftex.def Info: curves_cnn.png  used on input line 278.
+(pdftex.def)             Requested size: 252.0pt x 83.99866pt.
+<roc_four_models.png, id=240, 462.528pt x 390.258pt>
+File: roc_four_models.png Graphic file (type png)
+<use roc_four_models.png>
+Package pdftex.def Info: roc_four_models.png  used on input line 288.
+(pdftex.def)             Requested size: 252.0pt x 212.6298pt.
 
 
 [4 <./arch_cnn.png>]
-<cm_cnn.png, id=255, 361.35pt x 289.08pt>
-File: cm_cnn.png Graphic file (type png)
-<use cm_cnn.png>
-Package pdftex.def Info: cm_cnn.png  used on input line 301.
-(pdftex.def)             Requested size: 181.4403pt x 145.15277pt.
-<curves_cnn.png, id=256, 867.24pt x 289.08pt>
-File: curves_cnn.png Graphic file (type png)
-<use curves_cnn.png>
-Package pdftex.def Info: curves_cnn.png  used on input line 308.
-(pdftex.def)             Requested size: 252.0pt x 83.99866pt.
-
 
 
 
 [5 <./cm_logistic.png> <./cm_nb.png> <./cm_svm.png> <./cm_cnn.png> <./curves_cn
-n.png>]
+n.png> <./roc_four_models.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 327--328
 []\OT1/ptm/m/n/10 Gaussian Naive Bayes un-der-per-forms be-cause its
  []
@@ -1136,13 +1139,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: C174077DEAA08B804FB65D82B045D784;3892.
  ) 
 Here is how much of TeX's memory you used:
- 33110 strings out of 473190
- 774555 string characters out of 5715800
- 1255594 words of memory out of 5000000
- 55778 multiletter control sequences out of 15000+600000
+ 32599 strings out of 473190
+ 760206 string characters out of 5715800
+ 1243675 words of memory out of 5000000
+ 55262 multiletter control sequences out of 15000+600000
  600615 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,19n,105p,1553b,2327s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,12n,105p,1294b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
@@ -1163,10 +1166,10 @@ exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/20
 s/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/u
 rw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb>
-Output written on main.pdf (7 pages, 19055618 bytes).
+Output written on main.pdf (7 pages, 19108050 bytes).
 PDF statistics:
- 418 PDF objects out of 1000 (max. 8388607)
- 336 compressed objects within 4 object streams
- 83 named destinations out of 1000 (max. 500000)
- 324 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 427 PDF objects out of 1000 (max. 8388607)
+ 343 compressed objects within 4 object streams
+ 88 named destinations out of 1000 (max. 500000)
+ 329 words of extra memory for PDF output out of 10000 (max. 10000000)
 
