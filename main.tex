@@ -40,11 +40,11 @@ Unsafe public transport, computer vision, image classification, Histogram of Ori
 \end{IEEEkeywords}
 
 \section{Introduction}
-Public transport in Dhaka carries a large share of daily urban mobility, but high passenger demand, limited vehicle capacity, and inconsistent enforcement often create unsafe travel conditions. A common visible hazard is door-hanging travel, where passengers ride from the doorway or exterior boundary of buses and legunas. Such conditions increase exposure to falls, collisions, and roadside obstacles, especially in crowded and informal operating environments.
+Public transport in Dhaka carries a large share of daily urban mobility, but high passenger demand, limited vehicle capacity, and inconsistent enforcement often create unsafe conditions. A common visible hazard is door-hanging travel, where passengers ride from the doorway or exterior boundary of buses and legunas, increasing exposure to falls, collisions, and roadside obstacles.
 
-Safety monitoring is still largely dependent on manual observation by traffic personnel, transport operators, or surveillance staff. This approach is difficult to scale across dense road networks, heterogeneous vehicle types, and continuously changing traffic scenes. It is also affected by observer fatigue, camera placement, occlusion, and inconsistent reporting.
+Safety monitoring is still largely dependent on manual observation by traffic personnel, transport operators, or surveillance staff. This approach is difficult to scale across dense road networks, heterogeneous vehicle types, and continuously changing traffic scenes.
 
-Computer vision is suitable for this task because images can capture vehicle structure, passenger position, crowding, and doorway conditions. This paper proposes an image-based machine-learning system that classifies Dhaka public transport scenes into safe/normal conditions and unsafe/risky hanging-travel conditions. The negative class represents safe/normal passenger conditions, and the positive class represents unsafe/risky hanging travel.
+Computer vision is useful for this task because images can capture vehicle structure, passenger position, crowding, and doorway conditions. This paper proposes an image-based machine-learning system that classifies Dhaka public transport scenes into safe/normal conditions and unsafe/risky hanging-travel conditions. The negative class represents safe/normal passenger conditions, and the positive class represents unsafe/risky hanging travel.
 
 The main contributions are as follows:
 \begin{itemize}
@@ -55,7 +55,7 @@ The main contributions are as follows:
 \end{itemize}
 
 \section{Related Work}
-Computer vision has become an important component of intelligent transportation systems. Surveyed applications include vehicle detection, pedestrian detection, anomaly detection, traffic monitoring, and automatic number-plate recognition \cite{dilek2023cvits}. These methods show that visual data can support automated interpretation of transportation scenes, although most work targets general traffic understanding rather than localized passenger-safety classification.
+Computer vision has become an important component of intelligent transportation systems. Surveyed applications include vehicle detection, pedestrian detection, anomaly detection, traffic monitoring, and automatic number-plate recognition \cite{dilek2023cvits}. These methods show that visual data can support automated interpretation of transportation scenes, although most work targets general traffic understanding rather than specific passenger-safety risks.
 
 Passenger monitoring research has commonly focused on counting, occupancy estimation, boarding analysis, and crowd monitoring in buses or terminals \cite{hsu2020passenger}. Public transport safety studies also identify overcrowding, weak enforcement, and unsafe passenger behavior as important risk factors in dense urban environments \cite{hossain2018bus}, while broader reviews show that crowd pressure and non-collision incidents remain persistent concerns when demand exceeds service capacity \cite{crowding2023review}.
 
@@ -63,7 +63,7 @@ Unsafe behavior and abnormal-activity detection are related to the present task 
 
 Automatic License Plate Recognition (ALPR) is relevant only as future context for identifying vehicles after unsafe behavior is detected. Existing ALPR studies address plate localization and recognition under real-world imaging constraints \cite{anagnostopoulos2008license}, \cite{silva2018license}, \cite{du2013automatic}, including Bengali license-plate recognition under low-resolution and blurred conditions \cite{afrin2023bengali}.
 
-The key gap is that existing work rarely addresses unsafe door-hanging detection in Dhaka-like crowded, informal public transport environments with localized datasets and real-world visual challenges. Prior systems often estimate occupancy, count passengers, or recognize boarding events, but they do not directly model hanging passengers as a safety-critical positive class under local bus and leguna conditions.
+The key gap is that existing work rarely addresses unsafe door-hanging detection in Dhaka-like crowded public transport environments using localized datasets under real-world challenges such as occlusion, motion blur, lighting variation, crowding, and non-standard vehicle structures. Prior systems often estimate occupancy, count passengers, or recognize boarding events, but they do not directly model hanging passengers as a safety-critical positive class under local bus and leguna conditions.
 
 \section{Dataset}
 \subsection{Data Collection}
