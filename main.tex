@@ -1,0 +1,521 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{cite}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{pgfplots}
+\usepackage[hidelinks]{hyperref}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\pgfplotsset{compat=1.18}
+
+\graphicspath{{./}}
+
+% Result macros from verified model runs.
+\newcommand{\aucLR}{0.825}
+\newcommand{\aucNB}{0.795}
+\newcommand{\aucSVM}{0.911}
+\newcommand{\aucCNN}{0.858}
+
+\title{Detection and Risk Assessment of Unsafe Hanging Travel in Public Transport Using Machine Learning}
+
+\author{\IEEEauthorblockN{Tazkia Malik, Sadk Hossain Asif, Tanzila Khan, Taif Ahmed Turjo, Amio Rashid, Mahmud Hasan Walid}
+\IEEEauthorblockA{Department of Computer Science and Engineering\\
+University of Dhaka\\
+Dhaka, Bangladesh}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Unsafe door-hanging and overcrowded travel are persistent safety risks in Dhaka's public transport system, particularly in buses and legunas operating under high passenger demand. Existing intelligent transportation research has addressed vehicle detection, passenger counting, and general crowd analysis, but localized automated detection of unsafe hanging travel remains limited, partly due to the lack of task-specific datasets from Dhaka's traffic environment. This paper presents an image-based machine-learning framework for classifying public transport scenes into safe/normal conditions, treated as the negative class, and unsafe hanging or risky conditions, treated as the positive class. A custom dataset of bus and leguna images is prepared through cleaning, standardization, preprocessing, and augmentation. For classical machine-learning baselines, Histogram of Oriented Gradients (HOG) descriptors are extracted and used with Logistic Regression, Gaussian Naive Bayes, and a Support Vector Machine (SVM) with a radial basis function kernel. A convolutional neural network (CNN) is also evaluated to compare learned visual features with handcrafted HOG representations. The models are assessed using accuracy, precision, recall, F1-score, confusion matrices, and receiver operating characteristic area under the curve (ROC/AUC). The results show that automated visual detection of unsafe hanging travel is feasible on a modest localized dataset, with the SVM providing the strongest classical baseline among the HOG-based models.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Unsafe public transport, computer vision, image classification, Histogram of Oriented Gradients, support vector machine, convolutional neural network, intelligent transportation system.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Public transport in Dhaka carries a large share of daily urban mobility, but high passenger demand, limited vehicle capacity, and inconsistent enforcement often produce unsafe travel conditions. A common and visible hazard is door-hanging travel, where passengers ride from the doorway or exterior boundary of buses and legunas. Such behavior increases exposure to falls, collisions, and roadside obstacles, and it is frequently accompanied by overcrowding and improper boarding.
+
+Current safety monitoring practices rely heavily on manual observation by traffic personnel, transport operators, or surveillance staff. Manual monitoring is difficult to scale across dense road networks, heterogeneous vehicle types, and continuously changing traffic scenes. It is also sensitive to observer fatigue, camera placement, occlusion, and inconsistent reporting, which limits its usefulness for timely and systematic safety assessment.
+
+Computer vision provides a practical mechanism for extracting safety-relevant information from roadside or vehicle-facing images. Image classification can be used as an initial automated screening layer that distinguishes safe/normal transport conditions from unsafe hanging or risky conditions. In this study, the safe/normal condition is treated as the negative class, while unsafe hanging or risky travel is treated as the positive class.
+
+This paper develops a machine-learning pipeline for unsafe hanging-travel detection in Dhaka public transport. The pipeline uses a localized image dataset of buses and legunas, applies cleaning and standardization, uses augmentation to improve robustness, extracts Histogram of Oriented Gradients (HOG) features for classical models, and compares those models with a convolutional neural network (CNN). The objective is not to claim a deployment-ready enforcement system, but to establish a reproducible baseline for localized visual safety classification.
+
+The main contributions are as follows:
+\begin{itemize}
+    \item A localized image-based dataset for safe/normal and unsafe public transport conditions in Dhaka.
+    \item A machine-learning pipeline for binary unsafe hanging-travel detection.
+    \item A comparison of HOG-based classical models, including Logistic Regression, Gaussian Naive Bayes, and SVM, with a CNN-based approach.
+    \item An evaluation using standard classification metrics, including accuracy, precision, recall, F1-score, confusion matrices, and ROC/AUC.
+\end{itemize}
+
+\section{Related Work}
+Public transport safety is affected by crowding, unsafe boarding, and passenger movement outside designated vehicle spaces. Prior studies identify overcrowding, weak enforcement, and unsafe passenger behavior as important contributors to transport-related risk in dense urban environments \cite{hossain2018bus}. Broader reviews of public transport crowding also report that crowd pressure and non-collision incidents remain persistent concerns, particularly where demand exceeds available service capacity \cite{crowding2023review}.
+
+Computer vision has become a central component of intelligent transportation systems. Surveyed applications include vehicle detection, pedestrian detection, anomaly detection, traffic monitoring, and automatic number-plate recognition \cite{dilek2023cvits}. These methods show that visual data can support automated interpretation of road and transport scenes, but most work is designed for general traffic understanding rather than localized passenger-safety classification.
+
+Passenger monitoring systems have commonly focused on counting, occupancy estimation, boarding analysis, and crowd monitoring in buses or terminals \cite{hsu2020passenger}. Object-detection methods, including YOLO-based approaches, have also been applied to transportation surveillance and passenger boarding or alighting recognition \cite{redmon2016yolo}, \cite{yolo2024boarding}. These studies provide useful foundations for visual public transport monitoring, but their target outputs are usually passenger flow, density, or movement events rather than unsafe door-hanging as a distinct risk category.
+
+Abnormal-activity detection in surveillance video is closely related to the present task because it aims to identify behavior that deviates from normal visual patterns. Recent surveys note the effectiveness of deep learning for abnormal behavior detection while also emphasizing challenges caused by limited labeled data, occlusion, scene variation, and domain transfer \cite{wastupranata2024abnormal}. These challenges are directly relevant to Dhaka public transport, where crowding, motion blur, lighting variation, and non-standard vehicle structures complicate visual analysis.
+
+Automatic License Plate Recognition (ALPR) is relevant as a possible downstream component for identifying vehicles after unsafe behavior is detected, but it is not the primary task in this work. Existing ALPR research covers plate localization and recognition under real-world imaging constraints \cite{anagnostopoulos2008license}, \cite{silva2018license}, \cite{du2013automatic}, including Bengali license-plate recognition under low-resolution and blurred conditions \cite{afrin2023bengali}. In this paper, license-plate analysis is treated only as contextual motivation for future integration, while the implemented focus remains binary unsafe-condition classification.
+
+\section{Research Gap and Motivation}
+Although computer vision has been widely studied for traffic monitoring and passenger-flow analysis, limited work directly addresses unsafe door-hanging passenger detection in informal and overcrowded public transport. Existing systems generally estimate occupancy, count passengers, or recognize boarding and alighting events; they do not explicitly model hanging passengers as the positive class in a safety-focused image-classification task.
+
+A second gap is the lack of localized datasets representing Dhaka's public transport conditions. Buses and legunas in this environment differ from standardized transport systems in vehicle geometry, boarding behavior, passenger density, and roadside visual clutter. Models trained on generic or highly structured transportation datasets may therefore fail to capture the visual patterns associated with unsafe hanging travel in local operating conditions.
+
+The visual setting also presents practical challenges. Passengers may be partially occluded by doors, vehicle frames, other passengers, roadside objects, or motion blur. Images may vary substantially in lighting, camera angle, resolution, weather, and crowding level. These factors make the task more difficult than ordinary vehicle or pedestrian classification and motivate a baseline that can be evaluated under realistic local data constraints.
+
+This work is motivated by the need for scalable automated safety monitoring that can support, rather than replace, human oversight. By framing the problem as binary image classification between safe/normal negative samples and unsafe hanging or risky positive samples, the study provides an initial technical basis for detecting high-risk public transport conditions in Dhaka and for extending the pipeline toward more detailed localization or video-based monitoring in future work.
+
+
+\section{Proposed Methodology}
+The proposed system is formulated as a binary image-classification pipeline for public transport safety assessment. The workflow consists of image collection, cleaning, annotation, augmentation, preprocessing, feature extraction or model-specific input preparation, model training, and evaluation. Each image is assigned to one of two classes: the negative class represents a safe/normal passenger condition, and the positive class represents an unsafe/risky hanging travel condition.
+
+The pipeline begins with images of buses and legunas collected from real Dhaka public transport scenes. Low-quality or ambiguous samples are removed during cleaning, and the remaining images are annotated with class labels. Data augmentation is applied only within the training workflow to improve robustness against expected visual variation. After preprocessing and standardization, classical machine-learning models receive Histogram of Oriented Gradients (HOG) feature vectors, whereas the CNN receives resized RGB image tensors directly.
+
+Both classical and CNN-based approaches are evaluated because they represent different assumptions about visual representation. HOG-based classifiers provide compact, interpretable baselines that are appropriate for limited data, while CNNs learn task-specific spatial features directly from images. Comparing these approaches clarifies whether handcrafted gradient descriptors remain competitive for this localized safety-classification task.
+
+\section{Dataset Preparation}
+The dataset contains images of buses and legunas captured under real-world public transport conditions in Dhaka. The images include variation in vehicle type, passenger density, camera angle, lighting, and scene clutter. After collection, cleaning, and standardization, the dataset used for model training contains 399 images, with 266 images labelled as the negative class (safe/normal passenger condition) and 133 images labelled as the positive class (unsafe/risky hanging travel condition). Figure~\ref{fig:eda} summarizes the class distribution and image properties of the collected data.
+
+\begin{figure}[!t]
+    \centering
+    \subfloat[Vehicle-label distribution.]{\includegraphics[width=0.48\linewidth]{eda_vehicle_label.png}}
+    \hfill
+    \subfloat[Class proportion.]{\includegraphics[width=0.48\linewidth]{eda_label_pie.png}}
+
+    \vspace{0.4cm}
+
+    \subfloat[Source resolution distribution.]{\includegraphics[width=0.48\linewidth]{eda_resolution.png}}
+    \hfill
+    \subfloat[Collection-point distribution.]{\includegraphics[width=0.48\linewidth]{eda_gps.png}}
+    \caption{Exploratory summary of the collected dataset.}
+    \label{fig:eda}
+\end{figure}
+
+Representative examples of the two vehicle categories are shown in Fig.~\ref{fig:leguna_samples} and Fig.~\ref{fig:bus_samples}.
+
+\begin{figure}[!t]
+    \centering
+    \subfloat[Negative class.]{\includegraphics[width=0.4\linewidth]{leguna_negative.png}}
+    \hfill
+    \subfloat[Positive class.]{\includegraphics[width=0.4\linewidth]{leguna_positive.png}}
+    \caption{Representative leguna samples.}
+    \label{fig:leguna_samples}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \subfloat[Negative class.]{\includegraphics[width=0.4\linewidth]{bus_negative.png}}
+    \hfill
+    \subfloat[Positive class.]{\includegraphics[width=0.4\linewidth]{bus_positive.png}}
+    \caption{Representative bus samples.}
+    \label{fig:bus_samples}
+\end{figure}
+
+Cleaning removed images whose content was too blurred, poorly framed, or ambiguous for reliable class assignment. The objective was to reduce label noise while retaining realistic variation in traffic, vehicle structure, crowding, and illumination. Manual annotation assigned each retained image to the negative or positive class. Figure~\ref{fig:annotation_samples} shows representative annotation examples, including license-plate annotations retained for possible future vehicle-identification integration.
+
+\begin{figure}[!t]
+    \centering
+    \subfloat[Safe/normal annotation.]{\includegraphics[width=0.35\linewidth]{annotation_1.jpeg}}
+    \hfill
+    \subfloat[Unsafe/risky annotation.]{\includegraphics[width=0.35\linewidth]{annotation_2.jpeg}}
+
+    \vspace{0.4cm}
+
+    \subfloat[License-plate annotation.]{\includegraphics[width=0.35\linewidth]{annotation_3.png}}
+    \hfill
+    \subfloat[Combined annotation.]{\includegraphics[width=0.35\linewidth]{annotation_4.png}}
+    \caption{Representative annotation examples.}
+    \label{fig:annotation_samples}
+\end{figure}
+
+Training-time augmentation was used for the neural models to improve generalization without changing the held-out evaluation data. The augmentation operations include random resized cropping, horizontal flipping, small-angle rotation up to 15 degrees, and color jitter for brightness, contrast, and saturation. These transformations simulate common roadside imaging variation while preserving the class label \cite{shorten2019augmentation}.
+
+All images were standardized before model-specific processing. Each image was orientation-corrected, converted to RGB, resized so that the shorter side measured 512 pixels, center-cropped to a square 512 by 512 resolution, and saved as a lossless PNG. Classical models then used grayscale 128 by 128 inputs for HOG extraction, while the CNN used 128 by 128 RGB inputs. The dataset is available online at \url{https://drive.google.com/drive/folders/1D3jDBvA-cAhwRPA4wUBUss5zlwdXdLJY}.
+
+To avoid leakage between related images, the split was treated as group-aware: images derived from the same source or augmentation group were kept within the same partition. The final held-out split was stratified to preserve the class ratio, producing 319 training images and 80 test images. Model selection for the classical pipelines was performed only within the training portion by cross-validation.
+
+\section{Machine Learning Models}
+This section describes the feature representation and classifiers used for binary unsafe hanging-travel detection. The negative class denotes safe/normal passenger conditions, and the positive class denotes unsafe/risky hanging travel conditions.
+
+\subsection{HOG Feature Representation}
+For the classical models, Histogram of Oriented Gradients (HOG) descriptors were extracted from grayscale images \cite{dalal2005hog}. HOG captures local gradient orientation and edge-structure information, which is useful for posture-, shape-, and boundary-related visual classification. With 9 orientation bins, $16 \times 16$ pixel cells, and $2 \times 2$ cell blocks normalized using the L2-Hys scheme, each $128 \times 128$ image is represented by
+\[
+7 \times 7 \times 2 \times 2 \times 9 = 1764
+\]
+features. Feature extraction was implemented with scikit-image \cite{vanderwalt2014skimage}. The classical pipeline is illustrated in Fig.~\ref{fig:arch_svm}.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{arch_svm.png}
+    \caption{HOG-based classical machine-learning pipeline.}
+    \label{fig:arch_svm}
+\end{figure}
+
+\subsection{Logistic Regression}
+Logistic Regression provides a linear probabilistic baseline in the HOG feature space. It estimates the posterior probability of the positive class as
+\[
+P(y=1 \mid x) = \frac{1}{1 + e^{-w^{\top} x}} .
+\]
+The model is computationally efficient and interpretable, but its linear decision boundary can be limited when safe and unsafe samples are not linearly separable. The implementation used L2 regularization, the \texttt{lbfgs} solver, balanced class weights, and a maximum of 5000 iterations; cross-validation selected $C = 10$.
+
+\subsection{Gaussian Naive Bayes}
+Gaussian Naive Bayes is a probabilistic baseline that assumes conditional independence among features given the class label. Each feature is modeled with a Gaussian likelihood,
+\[
+P(x_i \mid y) = \mathcal{N}(\mu_y, \sigma_y^2),
+\]
+and prediction is based on the posterior score
+\[
+P(y \mid x) \propto P(y) \prod_i P(x_i \mid y).
+\]
+Although the independence assumption is restrictive for correlated HOG features, the model is useful as a simple low-complexity comparator. Cross-validation selected a variance-smoothing value of $10^{-3}$ with PCA retaining 90 percent of the variance.
+
+\subsection{Support Vector Machine with RBF Kernel}
+The Support Vector Machine (SVM) seeks a maximum-margin boundary between the negative and positive classes \cite{cortes1995svm}. The radial basis function (RBF) kernel handles non-linear separation in the HOG feature space through
+\[
+K(x_i, x_j) = \exp\!\left(-\gamma \lVert x_i - x_j \rVert^2\right).
+\]
+This kernel allows samples with similar HOG patterns to influence the decision function even when a linear boundary is insufficient. Cross-validation selected $C = 4$ and $\gamma = 0.001$ with balanced class weights, and probability estimates were enabled for ROC analysis.
+
+\subsection{Convolutional Neural Network}
+The CNN processes RGB images directly and learns spatial features from the training data \cite{krizhevsky2012alexnet}. The architecture consists of four convolutional blocks with batch normalization, ReLU activations, and max pooling, followed by global average pooling and a fully connected classification head with dropout \cite{ioffe2015batchnorm}, \cite{srivastava2014dropout}. It maps a $128 \times 128$ RGB input to two output logits corresponding to the negative and positive classes. The network contains 1{,}206{,}370 trainable parameters and is shown in Fig.~\ref{fig:arch_cnn}.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{arch_cnn.png}
+    \caption{CNN architecture used for image-level binary classification.}
+    \label{fig:arch_cnn}
+\end{figure}
+
+\section{Experimental Setup}
+The experiments were implemented in Python using scikit-learn for the classical pipelines \cite{pedregosa2011sklearn}, PyTorch for the neural models \cite{paszke2019pytorch}, and scikit-image for image processing \cite{vanderwalt2014skimage}. A fixed random seed of 42 was used for reproducibility. Table~\ref{tab:hyperparams} summarizes the hyperparameters already used in the experiments.
+
+The data split followed a stratified, group-aware 80/20 protocol. Group-aware assignment kept related images or augmented variants from the same source within a single partition, reducing the risk of data leakage. The split produced 319 training images and 80 held-out test images. Classical model hyperparameters were selected by 5-fold cross-validation on the training set only; the test set was reserved for final evaluation. For neural training, augmentation was applied after splitting so that transformed training samples did not contaminate the held-out test set.
+
+For HOG-based models, features were standardized with a \texttt{StandardScaler} fitted on the training data and then applied to validation folds and the test set. PCA was used in the classical pipelines where reported in Table~\ref{tab:hyperparams}: 95 percent retained variance for Logistic Regression and SVM, and 90 percent retained variance for Gaussian Naive Bayes. The CNN used normalized RGB image tensors rather than HOG descriptors, StandardScaler, or PCA.
+
+\begin{table*}[!t]
+\centering
+\caption{Main training configuration for each model.}
+\label{tab:hyperparams}
+\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Model} & \textbf{Configuration} \\
+\midrule
+Logistic Regression & HOG (1764-d), StandardScaler, PCA (95\% var), L2 penalty, \texttt{lbfgs}, $C=10$, balanced class weights, 5-fold CV. \\
+Gaussian Naive Bayes & HOG (1764-d), StandardScaler, PCA (90\% var), var.\ smoothing $10^{-3}$, empirical priors, 5-fold CV. \\
+SVM (RBF) & HOG (1764-d), StandardScaler, PCA (95\% var), $C=4$, $\gamma=0.001$, balanced class weights, 5-fold CV. \\
+Small CNN & Input $128\times128$, 4 conv blocks, GAP, FC head, dropout 0.3, AdamW (lr $10^{-3}$, weight decay $10^{-4}$), batch 32, 30 epochs, cosine LR, class-weighted cross-entropy, label smoothing 0.05. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The CNN was trained with class-weighted cross-entropy and label smoothing. Given logits $z \in \mathbb{R}^{2}$, class probabilities are computed by
+\[
+p_k = \frac{e^{z_k}}{\sum_{j=0}^{1} e^{z_j}}, \qquad k \in \{0, 1\}.
+\]
+For ground-truth class $y$, label smoothing uses $q_k = (1-\varepsilon)\,\mathbf{1}[k = y] + \varepsilon/2$ with $\varepsilon = 0.05$. The per-sample loss is
+\[
+\mathcal{L} = -\,w_y \sum_{k=0}^{1} q_k \log p_k,
+\]
+where $w_y = N/(2N_y)$ compensates for class imbalance. For the training split ($N = 319$, with 213 negative and 106 positive samples), the class weights are $0.75$ for the negative class and $1.50$ for the positive class. The loss was minimized with AdamW under a cosine-annealing learning-rate schedule \cite{kingma2015adam}.
+
+Evaluation used accuracy, precision, recall, F1-score, confusion matrices, ROC curves, and AUC. Learning curves were used where applicable to inspect neural-model training behavior. Let $TP$, $TN$, $FP$, and $FN$ denote true positives, true negatives, false positives, and false negatives, with the positive class corresponding to unsafe/risky hanging travel. The scalar metrics are
+\begin{align*}
+\mathrm{Accuracy} & = \frac{TP + TN}{TP + TN + FP + FN}, \\
+\mathrm{Precision} & = \frac{TP}{TP + FP}, \qquad
+\mathrm{Recall} = \frac{TP}{TP + FN},
+\end{align*}
+\[
+F_1 = 2 \cdot \frac{\mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{Precision} + \mathrm{Recall}}.
+\]
+Because the positive class is safety-critical, recall is emphasized alongside overall accuracy and AUC.
+
+
+\section{Results and Analysis}
+This section reports the verified held-out test performance for the four models used in the main comparison: Logistic Regression, Gaussian Naive Bayes, SVM with an RBF kernel, and the CNN trained from scratch. The test set contains 80 images, with 53 negative samples representing safe/normal passenger conditions and 27 positive samples representing unsafe/risky hanging travel conditions. Accuracy values are computed directly from the confusion matrices in Figs.~\ref{fig:cm_classical} and~\ref{fig:cm_cnn}.
+
+\subsection{Logistic Regression}
+The Logistic Regression classifier correctly classifies 46 negative samples and 18 positive samples, yielding 64 correct predictions out of 80 test images and an accuracy of 0.800. For the positive class, precision is 0.720, recall is 0.667, and F1-score is 0.692. The corresponding ROC/AUC value is 0.825. These results indicate that the linear HOG-based decision boundary captures part of the visual structure but misses 9 of the 27 unsafe/risky cases.
+
+\subsection{Gaussian Naive Bayes}
+Gaussian Naive Bayes correctly classifies 35 negative samples and 19 positive samples, for an accuracy of 0.675. Its positive-class precision is 0.514, recall is 0.704, and F1-score is 0.594, with an AUC of 0.795. Although the model detects more positive samples than Logistic Regression, it also produces more false positives, reflecting the limitation of the feature-independence assumption on correlated HOG descriptors.
+
+\subsection{SVM with RBF Kernel}
+The SVM with an RBF kernel correctly classifies 50 negative samples and 18 positive samples, giving 68 correct predictions out of 80 and an accuracy of 0.850. Its positive-class precision is 0.857, recall is 0.667, and F1-score is 0.750. The model also obtains the highest AUC among the four-model comparison, 0.911. The confusion matrix shows that the SVM provides the strongest overall balance among the classical models, with comparatively few false positives and stable discrimination in the HOG feature space.
+
+\begin{figure}[!t]
+    \centering
+    \subfloat[Logistic Regression.]{\includegraphics[width=0.32\linewidth]{cm_logistic.png}}
+    \hfill
+    \subfloat[Gaussian Naive Bayes.]{\includegraphics[width=0.32\linewidth]{cm_nb.png}}
+    \hfill
+    \subfloat[SVM with RBF kernel.]{\includegraphics[width=0.32\linewidth]{cm_svm.png}}
+    \caption{Confusion matrices for HOG-based classical models on the test set.}
+    \label{fig:cm_classical}
+\end{figure}
+
+\subsection{CNN}
+The CNN trained from scratch correctly classifies 44 negative samples and 21 positive samples, producing 65 correct predictions out of 80 test images. This corresponds to an accuracy of 0.813. Its positive-class precision is 0.700, recall is 0.778, and F1-score is 0.737, with an AUC of 0.858. The CNN therefore achieves the highest positive-class recall among the four compared models, but its overall accuracy and AUC remain below the SVM. The learning curves in Fig.~\ref{fig:curves_cnn} are retained as training diagnostics for this CNN experiment only.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.72\linewidth]{cm_cnn.png}
+    \caption{Confusion matrix for the CNN on the test set.}
+    \label{fig:cm_cnn}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{curves_cnn.png}
+    \caption{CNN training and test learning curves.}
+    \label{fig:curves_cnn}
+\end{figure}
+
+\subsection{Overall Model Comparison}
+Table~\ref{tab:comparison} summarizes the corrected test-set metrics, while Figs.~\ref{fig:model_comparison} and~\ref{fig:roc_four_models} show the corresponding accuracy/AUC comparison and ROC curves. The SVM is the most reliable overall model in this comparison because it has the highest accuracy and AUC, along with the highest positive-class precision. The CNN has lower overall accuracy than the SVM but provides the highest positive-class recall, which is important because false negatives correspond to missed unsafe/risky hanging-travel cases. Gaussian Naive Bayes has the weakest overall performance, while Logistic Regression provides a moderate linear baseline.
+
+\begin{table}[!t]
+\centering
+\caption{Verified test-set performance for the main model comparison.}
+\label{tab:comparison}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Acc.} & \textbf{Pos. P} & \textbf{Pos. R} & \textbf{AUC} \\
+\midrule
+Logistic Regression & 0.800 & 0.720 & 0.667 & 0.825 \\
+Gaussian Naive Bayes & 0.675 & 0.514 & 0.704 & 0.795 \\
+SVM (RBF) & \textbf{0.850} & \textbf{0.857} & 0.667 & \textbf{0.911} \\
+CNN & 0.813 & 0.700 & \textbf{0.778} & 0.858 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!t]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=0.62\linewidth,
+        ymin=0,
+        ymax=1.05,
+        ybar,
+        bar width=4.5pt,
+        ylabel={Score},
+        symbolic x coords={LR,NB,SVM,CNN},
+        xtick=data,
+        enlarge x limits=0.18,
+        legend style={font=\footnotesize, at={(0.5,-0.22)}, anchor=north, legend columns=2},
+        tick label style={font=\footnotesize},
+        label style={font=\footnotesize},
+        nodes near coords,
+        every node near coord/.append style={font=\scriptsize, rotate=90, anchor=west},
+        grid=major
+    ]
+    \addplot coordinates {(LR,0.800) (NB,0.675) (SVM,0.850) (CNN,0.813)};
+    \addplot coordinates {(LR,0.825) (NB,0.795) (SVM,0.911) (CNN,0.858)};
+    \legend{Accuracy,AUC}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Accuracy and AUC comparison for the four reported models.}
+    \label{fig:model_comparison}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=0.72\linewidth,
+        xmin=0,
+        xmax=1,
+        ymin=0,
+        ymax=1.02,
+        xlabel={False Positive Rate},
+        ylabel={True Positive Rate},
+        tick label style={font=\footnotesize},
+        label style={font=\footnotesize},
+        legend style={font=\scriptsize, at={(0.98,0.02)}, anchor=south east},
+        grid=major
+    ]
+    \addplot+[const plot, mark=none, thick] coordinates {(0,0) (0,0.33) (0.02,0.48) (0.055,0.59) (0.15,0.67) (0.19,0.70) (0.28,0.74) (0.36,0.81) (0.38,0.89) (0.60,0.92) (0.83,0.96) (0.90,1.0) (1.0,1.0)};
+    \addlegendentry{LR (AUC=0.825)}
+    \addplot+[const plot, mark=none, thick] coordinates {(0,0) (0.02,0.52) (0.17,0.63) (0.26,0.70) (0.42,0.78) (0.47,0.89) (0.64,0.92) (0.85,0.96) (0.89,1.0) (1.0,1.0)};
+    \addlegendentry{NB (AUC=0.795)}
+    \addplot+[const plot, mark=none, thick] coordinates {(0,0) (0.02,0.44) (0.04,0.63) (0.06,0.74) (0.11,0.81) (0.13,0.85) (0.21,0.89) (0.23,0.92) (0.45,0.965) (0.85,1.0) (1.0,1.0)};
+    \addlegendentry{SVM (AUC=0.911)}
+    \addplot+[const plot, mark=none, thick] coordinates {(0,0) (0.02,0.18) (0.02,0.37) (0.04,0.48) (0.055,0.52) (0.075,0.56) (0.095,0.63) (0.13,0.67) (0.15,0.78) (0.17,0.81) (0.30,0.85) (0.51,0.92) (0.53,0.96) (0.70,1.0) (1.0,1.0)};
+    \addlegendentry{CNN (AUC=0.858)}
+    \addplot[dashed, gray, mark=none] coordinates {(0,0) (1,1)};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{ROC curves for the four reported models.}
+    \label{fig:roc_four_models}
+\end{figure}
+
+\section{Discussion}
+The corrected results show that the SVM with an RBF kernel is the strongest overall model among the four-model comparison. HOG features encode local edge and gradient structure, which is well suited to capturing vehicle outlines, doorway regions, and passenger posture cues. The RBF kernel further improves separability by modeling non-linear decision boundaries in this HOG feature space.
+
+Gaussian Naive Bayes underperforms because its conditional-independence assumption is poorly matched to HOG descriptors. Neighboring gradient bins and block-normalized features are correlated by construction, so treating them as independent weakens the model's ability to distinguish visually similar safe/normal and unsafe/risky scenes.
+
+The CNN achieves the highest positive-class recall, indicating that it detects more unsafe/risky cases than the other models at the selected decision threshold. However, its overall accuracy and AUC remain below the SVM. This suggests that the CNN benefits from learned spatial features but requires more real source images and broader scene variation to generalize reliably without overfitting to the limited training set.
+
+For this application, positive-class recall is especially important because a false negative means that an unsafe/risky hanging-travel condition is missed. Precision and overall accuracy remain relevant for reducing false alarms, but a safety-oriented monitoring system should prioritize reducing missed unsafe cases while maintaining acceptable discrimination across normal and risky transport conditions.
+
+\section{Limitations}
+The main limitation of this study is the limited number of unique source images. Although the dataset reflects local Dhaka public transport conditions, the available samples cannot fully cover the diversity of vehicle layouts, camera viewpoints, passenger postures, weather, illumination, and traffic environments encountered in deployment.
+
+The neural models also depend on training-time augmentation to increase effective sample diversity. Augmentation improves robustness to controlled transformations, but it does not replace additional real images containing natural occlusion, motion blur, dense crowding, and non-standard bus or leguna structures. These factors can make unsafe/risky positive cases difficult to distinguish from visually cluttered safe/normal scenes.
+
+The current system is limited to image-level binary classification. It does not localize hanging passengers, estimate crowd density, track passengers across frames, or evaluate performance on large-scale real-time video streams. As a result, the method should be interpreted as a baseline for visual safety classification rather than a deployment-ready monitoring system.
+
+\section{Conclusion and Future Work}
+This paper presented a computer-vision and machine-learning pipeline for detecting unsafe hanging travel in Dhaka public transport. The task was formulated as binary image classification, where the negative class represents safe/normal passenger conditions and the positive class represents unsafe/risky hanging travel conditions. A localized dataset of bus and leguna images was prepared through cleaning, annotation, preprocessing, augmentation, HOG feature extraction for classical models, and RGB image preparation for CNN-based classification.
+
+Four main models were compared in the verified result set: Logistic Regression, Gaussian Naive Bayes, SVM with an RBF kernel, and a CNN trained from scratch. Among these models, the SVM achieved the strongest overall performance with 0.850 accuracy and the highest AUC in the four-model comparison. The CNN achieved 0.813 accuracy and the highest positive-class recall, but its lower overall accuracy and AUC indicate that additional real source images are needed for more reliable generalization.
+
+For safety-oriented monitoring, positive-class recall remains a central objective because missed unsafe/risky cases are more costly than many false alarms. Future work should therefore focus on collecting a larger localized dataset, improving recall for unsafe hanging travel, and evaluating the system on real-time video streams. Detection-based models such as YOLO \cite{redmon2016yolo} should also be tested to localize hanging passengers rather than only classify whole images. License-plate recognition may be integrated as a future extension for vehicle identification after unsafe conditions are detected.
+
+\IEEEtriggeratref{19}
+\begin{thebibliography}{99}
+
+\bibitem{hossain2018bus}
+M. Hossain, M. A. Karim, and S. Rahman,
+``Operational Hazards of Bus Transportation in Dhaka Metro City,''
+\textit{Journal of Bangladesh Institute of Planners}, vol. 11, pp. 45-58, 2018.
+
+\bibitem{crowding2023review}
+S. Tirachini and D. A. Hensher,
+``Crowding in Public Transport: A Review of Objective and Subjective Measures,''
+\textit{Journal of Public Transportation}, vol. 24, 100058, 2022.\\
+Available: \url{https://www.sciencedirect.com/science/article/pii/S1077291X22012486}
+
+\bibitem{dilek2023cvits}
+E. Dilek and M. Dener,
+``Computer Vision Applications in Intelligent Transportation Systems: A Survey,''
+\textit{Sensors}, vol. 23, no. 6, 2938, 2023.\\
+Available: \url{https://www.mdpi.com/1424-8220/23/6/2938}
+
+\bibitem{hsu2020passenger}
+Y.-W. Hsu, T.-Y. Wang, and J.-W. Perng,
+``Passenger flow counting in buses based on deep learning using surveillance video,''
+\textit{Optik}, vol. 202, 163390, 2020.\\
+Available: \url{https://www.sciencedirect.com/science/article/abs/pii/S0030402619315736}
+
+\bibitem{redmon2016yolo}
+J. Redmon, S. Divvala, R. Girshick, and A. Farhadi,
+``You Only Look Once: Unified, Real-Time Object Detection,''
+in \textit{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2016, pp. 779-788.\\
+Available: \url{https://arxiv.org/abs/1506.02640}
+
+\bibitem{yolo2024boarding}
+``A Study on Bus Passenger Boarding and Alighting Detection and Recognition Based on Video Images and the YOLO Algorithm,''
+\textit{Sensors}, vol. 26, no. 5, 1418, 2026.\\
+Available: \url{https://www.mdpi.com/1424-8220/26/5/1418}
+
+\bibitem{wastupranata2024abnormal}
+L. M. Wastupranata and S. G. Kong,
+``Deep Learning for Abnormal Human Behavior Detection in Surveillance Videos: A Survey,''
+\textit{Electronics}, vol. 13, no. 13, 2579, 2024.\\
+Available: \url{https://www.mdpi.com/2079-9292/13/13/2579}
+
+\bibitem{anagnostopoulos2008license}
+C. N. E. Anagnostopoulos, I. E. Anagnostopoulos, I. D. Psoroulas, V. Loumos, and E. Kayafas,
+``License Plate Recognition From Still Images and Video Sequences: A Survey,''
+\textit{IEEE Transactions on Intelligent Transportation Systems}, vol. 9, no. 3, pp. 377-391, 2008.\\
+Available: \url{https://ieeexplore.ieee.org/document/4557614}
+
+\bibitem{silva2018license}
+S. M. Silva and C. R. Jung,
+``License Plate Detection and Recognition in Unconstrained Scenarios,''
+in \textit{European Conference on Computer Vision (ECCV)}, 2018, pp. 580-596.\\
+Available: \url{https://link.springer.com/chapter/10.1007/978-3-030-01258-8_35}
+
+\bibitem{du2013automatic}
+S. Du, M. Ibrahim, M. Shehata, and W. Badawy,
+``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,''
+\textit{IEEE Transactions on Circuits and Systems for Video Technology}, vol. 23, no. 2, pp. 311-325, 2013.\\
+Available: \url{https://doi.org/10.1109/TCSVT.2012.2203741}
+
+\bibitem{afrin2023bengali}
+N. Afrin, M. M. Hasan, M. F. E. Safin, K. R. Amin, M. Z. Haque, F. Ahmed, and M. T. R. Shawon,
+``Bengali License Plate Recognition: Unveiling Clarity with CNN and GFP-GAN,''
+in \textit{26th International Conference on Computer and Information Technology (ICCIT)}, Cox's Bazar, Bangladesh, 2023, pp. 1-6.\\
+Available: \url{https://arxiv.org/abs/2312.10701}
+
+\bibitem{shorten2019augmentation}
+C. Shorten and T. M. Khoshgoftaar,
+``A survey on Image Data Augmentation for Deep Learning,''
+\textit{Journal of Big Data}, vol. 6, art. 60, 2019.\\
+Available: \url{https://link.springer.com/article/10.1186/s40537-019-0197-0}
+
+\bibitem{dalal2005hog}
+N. Dalal and B. Triggs,
+``Histograms of Oriented Gradients for Human Detection,''
+in \textit{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2005, pp. 886-893.\\
+Available: \url{https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf}
+
+\bibitem{vanderwalt2014skimage}
+S. van der Walt, J. L. Sch\"onberger, J. Nunez-Iglesias, F. Boulogne, J. D. Warner, N. Yager, E. Gouillart, and T. Yu,
+``scikit-image: image processing in Python,''
+\textit{PeerJ}, vol. 2, e453, 2014.\\
+Available: \url{https://peerj.com/articles/453/}
+
+\bibitem{cortes1995svm}
+C. Cortes and V. Vapnik,
+``Support-Vector Networks,''
+\textit{Machine Learning}, vol. 20, no. 3, pp. 273-297, 1995.\\
+Available: \url{https://link.springer.com/article/10.1007/BF00994018}
+
+\bibitem{krizhevsky2012alexnet}
+A. Krizhevsky, I. Sutskever, and G. E. Hinton,
+``ImageNet Classification with Deep Convolutional Neural Networks,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 25, 2012, pp. 1097-1105.\\
+Available: \url{https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks}
+
+\bibitem{ioffe2015batchnorm}
+S. Ioffe and C. Szegedy,
+``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift,''
+in \textit{International Conference on Machine Learning (ICML)}, 2015, pp. 448-456.\\
+Available: \url{https://arxiv.org/abs/1502.03167}
+
+\bibitem{srivastava2014dropout}
+N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever, and R. Salakhutdinov,
+``Dropout: A Simple Way to Prevent Neural Networks from Overfitting,''
+\textit{Journal of Machine Learning Research}, vol. 15, pp. 1929-1958, 2014.\\
+Available: \url{https://jmlr.org/papers/v15/srivastava14a.html}
+
+\bibitem{pedregosa2011sklearn}
+F. Pedregosa et al.,
+``Scikit-learn: Machine Learning in Python,''
+\textit{Journal of Machine Learning Research}, vol. 12, pp. 2825-2830, 2011.\\
+Available: \url{https://jmlr.org/papers/v12/pedregosa11a.html}
+
+\bibitem{paszke2019pytorch}
+A. Paszke et al.,
+``PyTorch: An Imperative Style, High-Performance Deep Learning Library,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 32, 2019, pp. 8024-8035.\\
+Available: \url{https://papers.nips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library}
+
+\bibitem{kingma2015adam}
+D. P. Kingma and J. Ba,
+``Adam: A Method for Stochastic Optimization,''
+in \textit{International Conference on Learning Representations (ICLR)}, 2015.\\
+Available: \url{https://arxiv.org/abs/1412.6980}
+
+\end{thebibliography}
+
+\end{document}
