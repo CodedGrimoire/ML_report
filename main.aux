@@ -37,6 +37,7 @@
 \citation{cortes1995svm}
 \citation{krizhevsky2012alexnet}
 \citation{he2016resnet}
+\citation{tan2019efficientnet}
 \citation{liu2022convnext}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representative annotation examples.}}{3}{figure.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Safe/normal annotation.}}}{3}{subfigure.4.1}\protected@file@percent }
@@ -63,35 +64,34 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Evaluation Metrics}{4}{subsection.5.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Results}{4}{section.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Quantitative Comparison}{4}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Confusion Matrix Analysis}{4}{subsection.6.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Model Configuration}}{5}{table.1}\protected@file@percent }
 \newlabel{tab:model_config}{{I}{5}{Model Configuration}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Held-out Test Performance for All Reported Models}}{5}{table.2}\protected@file@percent }
+\newlabel{tab:test_results}{{II}{5}{Held-out Test Performance for All Reported Models}{table.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Held-out test comparison of accuracy, unsafe recall, and ROC-AUC across all nine reported models.}}{5}{figure.7}\protected@file@percent }
 \newlabel{fig:paper_model_comparison}{{7}{5}{Held-out test comparison of accuracy, unsafe recall, and ROC-AUC across all nine reported models}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Rendered full held-out test results table for all nine reported models.}}{5}{figure.8}\protected@file@percent }
-\newlabel{fig:paper_results_table}{{8}{5}{Rendered full held-out test results table for all nine reported models}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{5}{subsection.6.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Updated performance comparison. Deep-model rows use cross-validation; classical rows use the updated holdout test.}}{6}{table.2}\protected@file@percent }
-\newlabel{tab:comparison}{{II}{6}{Updated performance comparison. Deep-model rows use cross-validation; classical rows use the updated holdout test}{table.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Selectable operating points for the deployed ensemble.}}{6}{table.3}\protected@file@percent }
-\newlabel{tab:operating_modes}{{III}{6}{Selectable operating points for the deployed ensemble}{table.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes.}}{6}{figure.9}\protected@file@percent }
-\newlabel{fig:paper_tradeoff}{{9}{6}{Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes}{figure.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Cross-Validated Deep-Model Metrics}}{6}{table.3}\protected@file@percent }
+\newlabel{tab:cv_results}{{III}{6}{Cross-Validated Deep-Model Metrics}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Selectable operating points for the deployed ensemble.}}{6}{table.4}\protected@file@percent }
+\newlabel{tab:operating_modes}{{IV}{6}{Selectable operating points for the deployed ensemble}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes.}}{6}{figure.8}\protected@file@percent }
+\newlabel{fig:paper_tradeoff}{{8}{6}{Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Confusion Matrix Analysis}{6}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}ROC and AUC Analysis}{6}{subsection.6.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Error Analysis}{6}{subsection.6.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion}{6}{section.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Interpretation of Results}{6}{subsection.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Limitations}{6}{subsection.7.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Confusion-matrix grid for all nine reported models on the held-out test set.}}{7}{figure.10}\protected@file@percent }
-\newlabel{fig:paper_confusion_matrices}{{10}{7}{Confusion-matrix grid for all nine reported models on the held-out test set}{figure.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces ROC curves for all nine reported models on the held-out test set.}}{7}{figure.11}\protected@file@percent }
-\newlabel{fig:paper_roc_test}{{11}{7}{ROC curves for all nine reported models on the held-out test set}{figure.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Precision--recall curves for all nine reported models on the held-out test set.}}{8}{figure.12}\protected@file@percent }
-\newlabel{fig:paper_pr_curves}{{12}{8}{Precision--recall curves for all nine reported models on the held-out test set}{figure.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Cross-validated ROC curves for the deep models on the train+validation split.}}{8}{figure.13}\protected@file@percent }
-\newlabel{fig:paper_roc_cv_deep}{{13}{8}{Cross-validated ROC curves for the deep models on the train+validation split}{figure.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Progression of recall-improvement techniques and the observed AUC ceiling in the paper assets.}}{8}{figure.14}\protected@file@percent }
-\newlabel{fig:paper_technique_progression}{{14}{8}{Progression of recall-improvement techniques and the observed AUC ceiling in the paper assets}{figure.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{8}{section.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Confusion-matrix grid for all nine reported models on the held-out test set.}}{7}{figure.9}\protected@file@percent }
+\newlabel{fig:paper_confusion_matrices}{{9}{7}{Confusion-matrix grid for all nine reported models on the held-out test set}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces ROC curves for all nine reported models on the held-out test set.}}{7}{figure.10}\protected@file@percent }
+\newlabel{fig:paper_roc_test}{{10}{7}{ROC curves for all nine reported models on the held-out test set}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Precision--recall curves for all nine reported models on the held-out test set.}}{8}{figure.11}\protected@file@percent }
+\newlabel{fig:paper_pr_curves}{{11}{8}{Precision--recall curves for all nine reported models on the held-out test set}{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Cross-validated ROC curves for the deep models on the train+validation split.}}{8}{figure.12}\protected@file@percent }
+\newlabel{fig:paper_roc_cv_deep}{{12}{8}{Cross-validated ROC curves for the deep models on the train+validation split}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Progression of recall-improvement techniques and the observed AUC ceiling in the paper assets.}}{8}{figure.13}\protected@file@percent }
+\newlabel{fig:paper_technique_progression}{{13}{8}{Progression of recall-improvement techniques and the observed AUC ceiling in the paper assets}{figure.13}{}}
 \citation{redmon2016yolo}
 \bibcite{dilek2023cvits}{1}
 \bibcite{hsu2020passenger}{2}
@@ -110,11 +110,13 @@
 \bibcite{cortes1995svm}{15}
 \bibcite{krizhevsky2012alexnet}{16}
 \bibcite{he2016resnet}{17}
-\bibcite{liu2022convnext}{18}
+\bibcite{tan2019efficientnet}{18}
+\bibcite{liu2022convnext}{19}
+\bibcite{ioffe2015batchnorm}{20}
+\bibcite{srivastava2014dropout}{21}
+\bibcite{pedregosa2011sklearn}{22}
+\bibcite{paszke2019pytorch}{23}
+\bibcite{kingma2015adam}{24}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{9}{section.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{References}{9}{section*.1}\protected@file@percent }
-\bibcite{ioffe2015batchnorm}{19}
-\bibcite{srivastava2014dropout}{20}
-\bibcite{pedregosa2011sklearn}{21}
-\bibcite{paszke2019pytorch}{22}
-\bibcite{kingma2015adam}{23}
-\gdef \@abspage@last{10}
+\gdef \@abspage@last{9}

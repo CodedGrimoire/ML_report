@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  24 JUN 2026 13:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  24 JUN 2026 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1028,96 +1028,102 @@ Package pdftex.def Info: arch_svm.png  used on input line 137.
 
 
 
+Underfull \hbox (badness 1831) in paragraph at lines 169--170
+\OT1/ptm/m/n/10 from scratch, ResNet18, EfficientNet-B0, ResNet50, and
+ []
+
+
 
 [3 <./annotation_1.jpeg> <./annotation_2.jpeg> <./annotation_3.png> <./annotati
 on_4.png> <./arch_svm.png>]
-<arch_cnn.png, id=213, 574.3056pt x 697.6464pt>
+<arch_cnn.png, id=214, 574.3056pt x 697.6464pt>
 File: arch_cnn.png Graphic file (type png)
 <use arch_cnn.png>
 Package pdftex.def Info: arch_cnn.png  used on input line 173.
 (pdftex.def)             Requested size: 252.0pt x 306.12439pt.
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd)
 
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd)
 <figures/fig2_model_comparison.png, id=224, 930.1149pt x 366.77025pt>
 File: figures/fig2_model_comparison.png Graphic file (type png)
 <use figures/fig2_model_comparison.png>
 Package pdftex.def Info: figures/fig2_model_comparison.png  used on input line 
-256.
+282.
 (pdftex.def)             Requested size: 516.0pt x 203.48154pt.
-<figures/fig3_results_table.png, id=225, 854.59274pt x 248.97015pt>
-File: figures/fig3_results_table.png Graphic file (type png)
-<use figures/fig3_results_table.png>
-Package pdftex.def Info: figures/fig3_results_table.png  used on input line 263
-.
-(pdftex.def)             Requested size: 516.0pt x 150.32918pt.
-<figures/fig6_tradeoff.png, id=226, 568.7649pt x 365.32484pt>
+<figures/fig6_tradeoff.png, id=225, 568.7649pt x 365.32484pt>
 File: figures/fig6_tradeoff.png Graphic file (type png)
 <use figures/fig6_tradeoff.png>
-Package pdftex.def Info: figures/fig6_tradeoff.png  used on input line 287.
+Package pdftex.def Info: figures/fig6_tradeoff.png  used on input line 306.
 (pdftex.def)             Requested size: 252.0pt x 161.86388pt.
-<figures/fig5_confusion_matrices.png, id=228, 806.17184pt x 410.4936pt>
+<figures/fig5_confusion_matrices.png, id=227, 806.17184pt x 410.4936pt>
 File: figures/fig5_confusion_matrices.png Graphic file (type png)
 <use figures/fig5_confusion_matrices.png>
 Package pdftex.def Info: figures/fig5_confusion_matrices.png  used on input lin
-e 297.
+e 316.
 (pdftex.def)             Requested size: 516.0pt x 262.7526pt.
 
 
 [4 <./arch_cnn.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Warning: Text page 5 contains only floats.
+
+
+Overfull \vbox (15.62234pt too high) has occurred while \output is active []
 
 
 
 
-Overfull \vbox (11.32463pt too high) has occurred while \output is active []
+LaTeX Warning: Text page 5 contains only floats.
+
+
+Overfull \vbox (15.62234pt too high) has occurred while \output is active []
 
 
 
-[5 <./figures/fig2_model_comparison.png> <./figures/fig3_results_table.png>]
-<figures/fig3b_roc_test.png, id=263, 496.85625pt x 438.6789pt>
+[5 <./figures/fig2_model_comparison.png>]
+<figures/fig3b_roc_test.png, id=260, 496.85625pt x 438.6789pt>
 File: figures/fig3b_roc_test.png Graphic file (type png)
 <use figures/fig3b_roc_test.png>
-Package pdftex.def Info: figures/fig3b_roc_test.png  used on input line 307.
+Package pdftex.def Info: figures/fig3b_roc_test.png  used on input line 326.
 (pdftex.def)             Requested size: 371.52063pt x 328.02438pt.
-<figures/fig4_pr_curves.png, id=264, 496.85625pt x 438.6789pt>
+<figures/fig4_pr_curves.png, id=261, 496.85625pt x 438.6789pt>
 File: figures/fig4_pr_curves.png Graphic file (type png)
 <use figures/fig4_pr_curves.png>
-Package pdftex.def Info: figures/fig4_pr_curves.png  used on input line 314.
+Package pdftex.def Info: figures/fig4_pr_curves.png  used on input line 333.
 (pdftex.def)             Requested size: 371.52063pt x 328.02438pt.
-<figures/fig8_roc_cv_deep.png, id=265, 496.85625pt x 438.6789pt>
+<figures/fig8_roc_cv_deep.png, id=262, 496.85625pt x 438.6789pt>
 File: figures/fig8_roc_cv_deep.png Graphic file (type png)
 <use figures/fig8_roc_cv_deep.png>
-Package pdftex.def Info: figures/fig8_roc_cv_deep.png  used on input line 321.
+Package pdftex.def Info: figures/fig8_roc_cv_deep.png  used on input line 340.
 (pdftex.def)             Requested size: 252.0pt x 222.49162pt.
 
-Underfull \hbox (badness 2119) in paragraph at lines 322--322
-\OT1/ptm/m/n/8 Fig. 13.  []Cross-validated ROC curves for the deep mod-els on t
+Underfull \hbox (badness 2119) in paragraph at lines 341--341
+\OT1/ptm/m/n/8 Fig. 12.  []Cross-validated ROC curves for the deep mod-els on t
 he
  []
 
 
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
 []\OT1/ptm/m/n/10 Gaussian Naive Bayes un-der-per-forms be-cause its
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 335--336
+Underfull \hbox (badness 5245) in paragraph at lines 354--355
 \OT1/ptm/m/n/10 conditional-independence as-sump-tion is poorly matched
  []
 
 
-Underfull \hbox (badness 4217) in paragraph at lines 335--336
+Underfull \hbox (badness 4217) in paragraph at lines 354--355
 \OT1/ptm/m/n/10 normalized fea-tures are cor-re-lated by con-struc-tion, so
  []
 
-<figures/fig7_technique_progression.png, id=266, 637.78275pt x 323.0469pt>
+<figures/fig7_technique_progression.png, id=263, 637.78275pt x 323.0469pt>
 File: figures/fig7_technique_progression.png Graphic file (type png)
 <use figures/fig7_technique_progression.png>
 Package pdftex.def Info: figures/fig7_technique_progression.png  used on input 
-line 341.
+line 360.
 (pdftex.def)             Requested size: 252.0pt x 127.64403pt.
 
 
@@ -1141,13 +1147,18 @@ Overfull \vbox (6.24103pt too high) has occurred while \output is active []
 [7 <./figures/fig5_confusion_matrices.png> <./figures/fig3b_roc_test.png>]
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [8 <./figures/fig4_pr_curves.png> <./figures/fig8_roc_cv_deep.png> <./figures/f
 ig7_technique_progression.png>]
+Underfull \hbox (badness 1571) in paragraph at lines 377--378
+[]\OT1/ptm/m/n/10 The up-dated re-sult set com-pares Lo-gis-tic Re-gres-sion,
+ []
 
 
 
-[9]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1161,11 +1172,7 @@ Before submitting the final camera ready copy, remember to:
 
 
 
-
-
-[10
-
-] (./main.aux)
+[9] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1174,13 +1181,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: F68BE22D5A6E928499EEBD237004D160;3842.
  ) 
 Here is how much of TeX's memory you used:
- 32599 strings out of 473190
- 761208 string characters out of 5715800
- 1250331 words of memory out of 5000000
- 55264 multiletter control sequences out of 15000+600000
+ 32593 strings out of 473190
+ 760979 string characters out of 5715800
+ 1261269 words of memory out of 5000000
+ 55258 multiletter control sequences out of 15000+600000
  601047 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,14n,105p,1400b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,14n,105p,1456b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
@@ -1199,10 +1206,10 @@ texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist
 /fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/ti
 mes/utmri8a.pfb>
-Output written on main.pdf (10 pages, 14229299 bytes).
+Output written on main.pdf (9 pages, 14083621 bytes).
 PDF statistics:
- 427 PDF objects out of 1000 (max. 8388607)
+ 424 PDF objects out of 1000 (max. 8388607)
  345 compressed objects within 4 object streams
  86 named destinations out of 1000 (max. 500000)
- 324 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 319 words of extra memory for PDF output out of 10000 (max. 10000000)
 
