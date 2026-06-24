@@ -13,13 +13,14 @@
 \usepackage[caption=false,font=footnotesize]{subfig}
 \pgfplotsset{compat=1.18}
 
-\graphicspath{{./}}
+\graphicspath{{./}{./figures/}{./tables/}}
 
 % Result macros from verified model runs.
-\newcommand{\aucLR}{0.825}
-\newcommand{\aucNB}{0.795}
-\newcommand{\aucSVM}{0.911}
+\newcommand{\aucLR}{0.822}
+\newcommand{\aucNB}{0.698}
+\newcommand{\aucSVM}{0.836}
 \newcommand{\aucCNN}{0.858}
+\newcommand{\aucEnsemble}{0.929}
 
 \title{Detection and Risk Assessment of Unsafe Hanging Travel in Public Transport Using Machine Learning}
 
@@ -32,7 +33,7 @@ Dhaka, Bangladesh}}
 \maketitle
 
 \begin{abstract}
-Unsafe door-hanging and overcrowded travel are persistent safety risks in Dhaka's public transport system, particularly in buses and legunas operating under high passenger demand. Existing intelligent transportation research has addressed vehicle detection, passenger counting, and general crowd analysis, but localized automated detection of unsafe hanging travel remains limited. This paper presents an image-based machine-learning framework for classifying public transport scenes into safe/normal and unsafe/risky conditions. A custom bus and leguna image dataset is prepared through cleaning, annotation, preprocessing, and augmentation. For classical machine-learning baselines, Histogram of Oriented Gradients (HOG) descriptors are used with Logistic Regression, Gaussian Naive Bayes, and a Support Vector Machine (SVM) with a radial basis function kernel. A convolutional neural network (CNN) is also evaluated to compare learned visual features with handcrafted HOG representations. The models are assessed using accuracy, precision, recall, F1-score, confusion matrices, and AUC. The results show that automated visual screening of unsafe hanging travel is feasible on a modest localized dataset, with SVM providing the strongest performance among the four reported models.
+Unsafe door-hanging and overcrowded travel are persistent safety risks in Dhaka's public transport system, particularly in buses and legunas operating under high passenger demand. Existing intelligent transportation research has addressed vehicle detection, passenger counting, and general crowd analysis, but localized automated detection of unsafe hanging travel remains limited. This paper presents an image-based machine-learning framework for classifying public transport scenes into safe/normal and unsafe/risky conditions. A custom bus and leguna image dataset is prepared through cleaning, annotation, preprocessing, and augmentation. For classical machine-learning baselines, Histogram of Oriented Gradients (HOG) descriptors are used with Logistic Regression, Gaussian Naive Bayes, and a Support Vector Machine (SVM) with a radial basis function kernel. Deep models based on ResNet50, ConvNeXt-Tiny, and an ensemble are also evaluated to compare learned visual features with handcrafted HOG representations. The models are assessed using accuracy, unsafe-class recall, confusion matrices, and AUC. The updated results show that automated visual screening of unsafe hanging travel is feasible on a modest localized dataset, with the ResNet50--ConvNeXt ensemble achieving the strongest balanced cross-validated performance and SVM remaining the strongest classical baseline by AUC.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -50,8 +51,8 @@ The main contributions are as follows:
 \begin{itemize}
     \item A localized safe/unsafe public transport image dataset containing Dhaka bus and leguna scenes.
     \item A complete machine-learning pipeline for unsafe hanging-travel detection.
-    \item A comparison of HOG-based classical machine-learning models and a CNN.
-    \item An evaluation using standard classification metrics, including accuracy, precision, recall, F1-score, confusion matrices, AUC, and learning curves where applicable.
+    \item A comparison of HOG-based classical machine-learning models and deep convolutional models.
+    \item An evaluation using standard classification metrics, including accuracy, unsafe-class recall, confusion matrices, AUC, and learning curves where applicable.
 \end{itemize}
 
 \section{Related Work}
@@ -67,20 +68,12 @@ The key gap is that existing work rarely addresses unsafe door-hanging detection
 
 \section{Dataset}
 \subsection{Data Collection}
-The dataset contains images of buses and legunas captured under real-world public transport conditions in Dhaka. The samples cover safe/normal and unsafe/risky cases with variation in vehicle type, passenger density, camera angle, lighting, and scene clutter. After collection, cleaning, and standardization, the model-development set contains 399 images, with 266 negative samples and 133 positive samples. Figure~\ref{fig:eda} summarizes the class distribution and image properties of the collected data.
+The dataset contains images of buses and legunas captured under real-world public transport conditions in Dhaka. The samples cover safe/normal and unsafe/risky cases with variation in vehicle type, passenger density, camera angle, lighting, and scene clutter. In the updated result set, labels are taken from image annotations: an unsafe box indicates unsafe hanging travel, while license-plate boxes are ignored for the classification label. After collection, cleaning, relabeling from annotations, and standardization, the model-development set contains 385 images, with 287 safe samples and 98 unsafe samples. Figure~\ref{fig:eda} summarizes the updated class distribution and split composition.
 
 \begin{figure}[!t]
     \centering
-    \subfloat[Vehicle-label distribution.]{\includegraphics[width=0.48\linewidth]{eda_vehicle_label.png}}
-    \hfill
-    \subfloat[Class proportion.]{\includegraphics[width=0.48\linewidth]{eda_label_pie.png}}
-
-    \vspace{0.4cm}
-
-    \subfloat[Source resolution distribution.]{\includegraphics[width=0.48\linewidth]{eda_resolution.png}}
-    \hfill
-    \subfloat[Collection-point distribution.]{\includegraphics[width=0.48\linewidth]{eda_gps.png}}
-    \caption{Exploratory summary of the collected dataset.}
+    \includegraphics[width=\linewidth]{figures/fig1_dataset_overview.png}
+    \caption{Updated dataset overview showing vehicle-wise class distribution and stratified 70/15/15 split composition.}
     \label{fig:eda}
 \end{figure}
 
@@ -126,7 +119,7 @@ Manual annotation assigned each retained image to one of two classes: negative f
 \end{figure}
 
 \subsection{Data Augmentation}
-Training-time augmentation was used to improve generalization without changing the held-out evaluation data. The operations include random resized cropping, horizontal flipping, small-angle rotation up to 15 degrees, and color jitter for brightness, contrast, and saturation. These transformations simulate common roadside imaging variation while preserving the class label \cite{shorten2019augmentation}.
+Training-time augmentation was used to improve generalization without changing the held-out evaluation data. The updated experiments used task-aware augmentation, including conservative random resized cropping to preserve door-edge passengers, horizontal flipping, mild rotation, RandAugment, color jitter, and random erasing for deep models. HOG baselines used train-only offline augmentation. These transformations simulate common roadside imaging variation while preserving the class label \cite{shorten2019augmentation}.
 
 All images were standardized before model-specific processing. The standardized preprocessing and model input settings are summarized in Table~\ref{tab:model_config}. The dataset is available online at \url{https://drive.google.com/drive/folders/1D3jDBvA-cAhwRPA4wUBUss5zlwdXdLJY}.
 
@@ -172,8 +165,8 @@ K(x_i, x_j) = \exp\!\left(-\gamma \lVert x_i - x_j \rVert^2\right).
 \]
 This kernel allows samples with similar HOG patterns to influence the decision function even when a linear boundary is insufficient. Table~\ref{tab:model_config} summarizes the implementation settings for all three classical models.
 
-\subsection{Convolutional Neural Network}
-The CNN processes RGB images directly and learns spatial features from the training data \cite{krizhevsky2012alexnet}. The architecture uses convolutional feature extraction with batch normalization, ReLU activations, pooling, and a fully connected classification head with dropout \cite{ioffe2015batchnorm}, \cite{srivastava2014dropout}. It maps image inputs to two output logits corresponding to the negative and positive classes. Figure~\ref{fig:arch_cnn} shows the architecture, and Table~\ref{tab:model_config} reports its configuration.
+\subsection{Deep Neural Models}
+The deep models process RGB images directly and learn spatial features from the training data \cite{krizhevsky2012alexnet}. The updated experiments evaluate a CNN trained from scratch, ResNet50, ConvNeXt-Tiny, EfficientNet-B0, and an ensemble at $320\times320$ input resolution where applicable \cite{he2016resnet}, \cite{liu2022convnext}. Weighted sampling, class-weighted loss, threshold tuning on out-of-fold probabilities, and horizontal-flip test-time augmentation were used to address class imbalance and improve unsafe-class recall. Figure~\ref{fig:arch_cnn} shows the CNN architecture, and Table~\ref{tab:model_config} reports the combined configuration.
 
 \begin{figure}[!t]
     \centering
@@ -200,11 +193,13 @@ The experiments were implemented in Python using scikit-learn for the classical 
 \midrule
 Image standardization & Source images & Orientation correction, RGB conversion, shorter side 512 px, center crop to $512\times512$, PNG output. \\
 HOG feature extraction & Grayscale $128\times128$ & 9 orientation bins, $16\times16$ pixel cells, $2\times2$ cell blocks, L2-Hys normalization, 1764-d feature vector. \\
-Logistic Regression & HOG features & StandardScaler, PCA (95\% var), L2 penalty, \texttt{lbfgs}, $C=10$, balanced class weights, 5-fold CV. \\
-Gaussian Naive Bayes & HOG features & StandardScaler, PCA (90\% var), var.\ smoothing $10^{-3}$, empirical priors, 5-fold CV. \\
-SVM with RBF kernel & HOG features & StandardScaler, PCA (95\% var), $C=4$, $\gamma=0.001$, balanced class weights, 5-fold CV, probability estimates enabled. \\
-CNN & RGB $128\times128$ & 4 conv blocks, 1{,}206{,}370 trainable parameters, GAP, FC head, dropout 0.3, AdamW (lr $10^{-3}$, weight decay $10^{-4}$), batch 32, 30 epochs, cosine LR, class-weighted cross-entropy, label smoothing 0.05. \\
-Evaluation protocol & Train/test split & Stratified group-aware 80/20 split, 319 training images, 80 test images, 53 negative and 27 positive test samples. \\
+Logistic Regression & HOG features & StandardScaler, HOG feature vector, \texttt{lbfgs}, max iterations 2{,}000, $C=1.0$ in the updated classical baseline. \\
+Gaussian Naive Bayes & HOG features & StandardScaler followed by Gaussian Naive Bayes; no tuned hyperparameters in the updated classical baseline. \\
+SVM with RBF kernel & HOG features & StandardScaler, RBF kernel, $C=10$, $\gamma=\texttt{scale}$, probability estimates enabled. \\
+ResNet50 / ConvNeXt-Tiny & RGB $320\times320$ & WeightedRandomSampler, class-weighted loss, out-of-fold threshold tuning, horizontal-flip test-time augmentation. \\
+Ensemble & RGB $320\times320$ & Probability-level ensemble of ResNet50 and ConvNeXt-Tiny with selectable operating thresholds for balanced, high-recall, and zero-miss screening modes. \\
+CNN & RGB $128\times128$ & 4-block CNN trained from scratch; updated test metrics are included in the model comparison. \\
+Evaluation protocol & Train/validation/test and CV & Stratified 70/15/15 split with 269 training, 58 validation, and 58 untouched test images; robust evaluation uses 5-fold stratified cross-validation on the 327 train+validation images. \\
 \bottomrule
 \end{tabularx}
 \end{table*}
@@ -232,106 +227,126 @@ Because missed unsafe cases have direct safety implications, positive-class reca
 
 \section{Results}
 \subsection{Quantitative Comparison}
-This section reports held-out test performance for the four models in the final comparison: Logistic Regression, Gaussian Naive Bayes, SVM with an RBF kernel, and the CNN trained from scratch. Table~\ref{tab:comparison} summarizes the quantitative results. SVM has the highest overall accuracy, while CNN has the highest positive-class recall.
+This section reports the updated results. The most reliable comparison for deep models is the 5-fold stratified cross-validation over the 327 train+validation images, because the untouched 58-image holdout contains only about 15 unsafe samples and is therefore noisy. Table~\ref{tab:comparison} summarizes the headline cross-validated and baseline metrics, while Figs.~\ref{fig:paper_model_comparison} and~\ref{fig:paper_results_table} show the full held-out test comparison for all nine reported models. The ResNet50--ConvNeXt ensemble gives the strongest balanced cross-validated performance overall, while SVM remains the strongest classical HOG baseline by AUC.
 
 \begin{table}[!t]
 \centering
-\caption{Test-set performance for the four reported models.}
+\caption{Updated performance comparison. Deep-model rows use cross-validation; classical rows use the updated holdout test.}
 \label{tab:comparison}
-\small
-\setlength{\tabcolsep}{3pt}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{lccccc}
 \toprule
-\textbf{Model} & \textbf{Acc.} & \textbf{Pos. P} & \textbf{Pos. R} & \textbf{F1} & \textbf{AUC} \\
+\textbf{Model} & \textbf{Eval.} & \textbf{Acc.} & \textbf{Unsafe R} & \textbf{Unsafe P} & \textbf{AUC} \\
 \midrule
-Logistic Regression & 0.800 & 0.720 & 0.667 & 0.692 & 0.825 \\
-Gaussian Naive Bayes & 0.675 & 0.514 & 0.704 & 0.594 & 0.795 \\
-SVM (RBF) & \textbf{0.850} & \textbf{0.857} & 0.667 & \textbf{0.750} & \textbf{0.911} \\
-CNN & 0.813 & 0.700 & \textbf{0.778} & 0.737 & 0.858 \\
+Ensemble (ResNet50+ConvNeXt) & CV & \textbf{0.917} & 0.807 & 0.859 & \textbf{0.929} \\
+ResNet50 & CV & 0.905 & \textbf{0.843} & -- & 0.919 \\
+ConvNeXt-Tiny & CV & 0.905 & 0.819 & -- & 0.923 \\
+EfficientNet-B0 & CV & 0.865 & 0.783 & -- & 0.884 \\
+SVM (RBF) & Test & 0.793 & 0.667 & 0.588 & 0.836 \\
+Logistic Regression & Test & 0.707 & 0.733 & -- & 0.822 \\
+Gaussian Naive Bayes & Test & 0.672 & 0.600 & -- & 0.698 \\
+CNN & Test & 0.914 & 0.667 & 1.000 & 0.822 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/fig2_model_comparison.png}
+    \caption{Held-out test comparison of accuracy, unsafe recall, and ROC-AUC across all nine reported models.}
+    \label{fig:paper_model_comparison}
+\end{figure*}
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/fig3_results_table.png}
+    \caption{Rendered full held-out test results table for all nine reported models.}
+    \label{fig:paper_results_table}
+\end{figure*}
+
+\begin{table}[!t]
+\centering
+\caption{Selectable operating points for the deployed ensemble.}
+\label{tab:operating_modes}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Mode} & \textbf{Threshold} & \textbf{CV Acc.} & \textbf{Unsafe R} & \textbf{Unsafe P} \\
+\midrule
+Balanced & 0.570 & 0.917 & 0.807 & 0.859 \\
+High recall & 0.125 & 0.746 & 0.952 & 0.500 \\
+Zero miss & 0.017 & 0.260 & 1.000 & 0.255 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/fig6_tradeoff.png}
+    \caption{Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes.}
+    \label{fig:paper_tradeoff}
+\end{figure}
+
 \subsection{Confusion Matrix Analysis}
-The confusion matrices in Figs.~\ref{fig:cm_classical} and~\ref{fig:cm_cnn} report class-level outcomes for the four models. Negative denotes safe/normal condition, and positive denotes unsafe/risky hanging travel condition.
+The confusion matrices in Fig.~\ref{fig:paper_confusion_matrices} report class-level outcomes for all nine models on the held-out test set. The rows show true labels and the columns show predicted labels, with safe representing normal passenger conditions and unsafe representing door-hanging risk.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
     \centering
-    \subfloat[Logistic Regression.]{\includegraphics[width=0.32\linewidth]{cm_logistic.png}}
-    \hfill
-    \subfloat[Gaussian Naive Bayes.]{\includegraphics[width=0.32\linewidth]{cm_nb.png}}
-    \hfill
-    \subfloat[SVM with RBF kernel.]{\includegraphics[width=0.32\linewidth]{cm_svm.png}}
-    \caption{Confusion matrices for HOG-based classical models on the test set. Negative = safe/normal; positive = unsafe/risky.}
-    \label{fig:cm_classical}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=0.72\linewidth]{cm_cnn.png}
-    \caption{Confusion matrix for the CNN on the test set. Negative = safe/normal; positive = unsafe/risky.}
-    \label{fig:cm_cnn}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{curves_cnn.png}
-    \caption{CNN training and test learning curves.}
-    \label{fig:curves_cnn}
-\end{figure}
+    \includegraphics[width=\textwidth]{figures/fig5_confusion_matrices.png}
+    \caption{Confusion-matrix grid for all nine reported models on the held-out test set.}
+    \label{fig:paper_confusion_matrices}
+\end{figure*}
 
 \subsection{ROC and AUC Analysis}
-AUC values are reported in Table~\ref{tab:comparison}. Figure~\ref{fig:roc_four_models} shows the ROC curves for the four reported models only.
+AUC values are reported in Table~\ref{tab:comparison}. Figure~\ref{fig:paper_roc_test} shows held-out ROC curves for all reported models, Fig.~\ref{fig:paper_pr_curves} shows the corresponding precision--recall curves, and Fig.~\ref{fig:paper_roc_cv_deep} shows the more reliable 5-fold cross-validated ROC curves for the deep models.
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.72\textwidth]{figures/fig3b_roc_test.png}
+    \caption{ROC curves for all nine reported models on the held-out test set.}
+    \label{fig:paper_roc_test}
+\end{figure*}
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.72\textwidth]{figures/fig4_pr_curves.png}
+    \caption{Precision--recall curves for all nine reported models on the held-out test set.}
+    \label{fig:paper_pr_curves}
+\end{figure*}
 
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=\linewidth]{roc_four_models.png}
-    \caption{ROC curves for the four reported models on the held-out test set.}
-    \label{fig:roc_four_models}
+    \includegraphics[width=\linewidth]{figures/fig8_roc_cv_deep.png}
+    \caption{Cross-validated ROC curves for the deep models on the train+validation split.}
+    \label{fig:paper_roc_cv_deep}
 \end{figure}
 
 \subsection{Error Analysis}
-False negatives are the most safety-critical error type because they correspond to unsafe/risky hanging-travel cases predicted as safe/normal. Based on the dataset context, likely visual causes include occlusion, motion blur, crowding, small visible passenger regions, ambiguous door-area visibility, and low image quality. Figure~\ref{fig:error_placeholder} provides a placeholder layout for qualitative error analysis; representative test-set false-negative and false-positive image files were not available in the project directory.
-
-\begin{figure}[!t]
-    \centering
-    \subfloat[False negative.]{%
-        \fbox{\begin{minipage}[c][0.72in][c]{0.42\linewidth}
-        \centering\footnotesize Unsafe image\\predicted safe\\sample pending
-        \end{minipage}}}
-    \hfill
-    \subfloat[False negative.]{%
-        \fbox{\begin{minipage}[c][0.72in][c]{0.42\linewidth}
-        \centering\footnotesize Unsafe image\\predicted safe\\sample pending
-        \end{minipage}}}
-
-    \vspace{0.15cm}
-
-    \subfloat[False positive.]{%
-        \fbox{\begin{minipage}[c][0.72in][c]{0.42\linewidth}
-        \centering\footnotesize Safe image\\predicted unsafe\\sample pending
-        \end{minipage}}}
-    \hfill
-    \subfloat[False positive.]{%
-        \fbox{\begin{minipage}[c][0.72in][c]{0.42\linewidth}
-        \centering\footnotesize Safe image\\predicted unsafe\\sample pending
-        \end{minipage}}}
-    \caption{Placeholder for representative misclassified samples, emphasizing false negatives.}
-    \label{fig:error_placeholder}
-\end{figure}
+False negatives are the most safety-critical error type because they correspond to unsafe/risky hanging-travel cases predicted as safe/normal. The updated audit found that the 100\% recall threshold is dominated by a few difficult cases: one leguna image was identified as label noise, while other bus images contain very small or distant hanging passengers occupying only a small part of a cluttered frame. The deployed ensemble therefore provides selectable operating modes: balanced mode gives 91.7\% cross-validated accuracy and 80.7\% unsafe recall, high-recall mode gives 74.6\% accuracy and 95.2\% unsafe recall, and zero-miss mode reaches 100\% unsafe recall at only 26.0\% accuracy.
 
 \section{Discussion}
 \subsection{Interpretation of Results}
-SVM performed best among the four reported models. HOG features encode local edge and gradient structure, which is well suited to capturing vehicle outlines, doorway regions, and passenger posture cues. The RBF kernel further improves separability by modeling non-linear decision boundaries in this HOG feature space.
+The updated results show that learned deep features outperform the classical HOG baselines at the balanced operating point. The ResNet50--ConvNeXt ensemble reached 91.7\% cross-validated accuracy, 80.7\% unsafe recall, and 0.929 AUC. ResNet50 alone produced the highest unsafe recall among balanced deep models at 84.3\%, while ConvNeXt-Tiny gave a similar AUC of 0.923.
+
+Among classical models, SVM remains the strongest HOG baseline by AUC. HOG features encode local edge and gradient structure, which is useful for capturing vehicle outlines, doorway regions, and passenger posture cues. The RBF kernel further improves separability by modeling non-linear decision boundaries in this HOG feature space.
 
 Gaussian Naive Bayes underperforms because its conditional-independence assumption is poorly matched to HOG descriptors. Neighboring gradient bins and block-normalized features are correlated by construction, so treating them as independent weakens the model's ability to distinguish visually similar safe/normal and unsafe/risky scenes.
 
-The CNN remains competitive because it learns spatial features directly from images, but it may require more unique real source images and broader scene variation to generalize reliably without overfitting to the limited training set.
+The CNN trained from scratch reached the highest held-out test accuracy in the supplied table, but the 58-image test set is noisy and its unsafe recall was lower than the cross-validated high-recall operating point. The stronger cross-validated deep results indicate that transfer-learning backbones and ensembling provide the more reliable basis for deployment decisions.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/fig7_technique_progression.png}
+    \caption{Progression of recall-improvement techniques and the observed AUC ceiling in the paper assets.}
+    \label{fig:paper_technique_progression}
+\end{figure}
 
 For this application, false negatives are more consequential than ordinary classification errors because they correspond to missed risky travel conditions. Precision and overall accuracy remain relevant for reducing false alarms, but a safety-oriented monitoring system should prioritize reducing missed unsafe cases while maintaining acceptable discrimination across normal and risky scenes.
 
 \subsection{Limitations}
-The main limitation of this study is the limited number of unique source images. Although the dataset reflects local operating conditions, the available samples cannot fully cover the diversity of vehicle layouts, camera viewpoints, passenger postures, weather, illumination, and traffic environments encountered in deployment.
+The main limitation of this study is the limited number of unique source images. The updated dataset contains 385 labeled images with 98 unsafe cases, which is still not enough to fully cover the diversity of vehicle layouts, camera viewpoints, passenger postures, weather, illumination, and traffic environments encountered in deployment.
 
 The neural models also depend on training-time augmentation to increase effective sample diversity. Augmentation improves robustness to controlled transformations, but it does not replace additional real images containing natural occlusion, motion blur, dense crowding, and non-standard bus or leguna structures. These factors can make unsafe/risky positive cases difficult to distinguish from visually cluttered safe/normal scenes.
 
@@ -340,7 +355,7 @@ The current system is limited to image-level binary classification. It does not 
 \section{Conclusion and Future Work}
 This paper presented a computer-vision and machine-learning pipeline for detecting unsafe hanging travel in Dhaka public transport. The task was formulated as binary image classification over safe/normal and unsafe/risky passenger conditions. A localized bus and leguna dataset was prepared through cleaning, annotation, preprocessing, and augmentation, with HOG features used for classical models and RGB inputs used for CNN-based classification.
 
-Four models were compared in the verified result set: Logistic Regression, Gaussian Naive Bayes, SVM with an RBF kernel, and a CNN trained from scratch. Among these models, SVM achieved the strongest overall performance with 0.850 accuracy, while CNN achieved 0.813 accuracy and may benefit from more real source images for stronger generalization.
+The updated result set compares Logistic Regression, Gaussian Naive Bayes, SVM with an RBF kernel, a CNN trained from scratch, ResNet50, ConvNeXt-Tiny, EfficientNet-B0, and a ResNet50--ConvNeXt ensemble. The ensemble achieved the strongest balanced cross-validated result with 91.7\% accuracy, 80.7\% unsafe recall, and 0.929 AUC. For safety-oriented screening, the high-recall operating mode increased unsafe recall to 95.2\% at 74.6\% accuracy, while zero-miss mode reached 100\% unsafe recall with many false alarms.
 
 Future work should focus on collecting a larger localized dataset, improving recall for unsafe hanging travel, evaluating the system on real-time video streams, and designing privacy-aware deployment procedures. Detection-based models such as YOLO \cite{redmon2016yolo} should also be tested to localize hanging passengers rather than only classify whole images. License-plate recognition may be integrated only as a future extension for vehicle identification after unsafe conditions are detected.
 
@@ -440,6 +455,18 @@ A. Krizhevsky, I. Sutskever, and G. E. Hinton,
 ``ImageNet Classification with Deep Convolutional Neural Networks,''
 in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 25, 2012, pp. 1097-1105.\\
 Available: \url{https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks}
+
+\bibitem{he2016resnet}
+K. He, X. Zhang, S. Ren, and J. Sun,
+``Deep Residual Learning for Image Recognition,''
+in \textit{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2016, pp. 770-778.\\
+Available: \url{https://arxiv.org/abs/1512.03385}
+
+\bibitem{liu2022convnext}
+Z. Liu, H. Mao, C.-Y. Wu, C. Feichtenhofer, T. Darrell, and S. Xie,
+``A ConvNet for the 2020s,''
+in \textit{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2022, pp. 11976-11986.\\
+Available: \url{https://arxiv.org/abs/2201.03545}
 
 \bibitem{ioffe2015batchnorm}
 S. Ioffe and C. Szegedy,

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  15 JUN 2026 17:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.6.14)  24 JUN 2026 13:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -876,24 +876,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -921,7 +921,7 @@ e
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-Package hyperref Info: Link coloring OFF on input line 31.
+Package hyperref Info: Link coloring OFF on input line 32.
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -929,23 +929,23 @@ Package hyperref Info: Link coloring OFF on input line 31.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 52.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 52.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 6758) in paragraph at lines 52--53
+
+
+Underfull \hbox (badness 6758) in paragraph at lines 53--54
 []\OT1/ptm/m/n/10 A com-plete machine-learning pipeline for un-safe
  []
-
-
 
 
 
@@ -954,169 +954,200 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-<eda_vehicle_label.png, id=147, 528.47438pt x 371.73882pt>
-File: eda_vehicle_label.png Graphic file (type png)
-<use eda_vehicle_label.png>
-Package pdftex.def Info: eda_vehicle_label.png  used on input line 74.
-(pdftex.def)             Requested size: 120.95892pt x 85.08405pt.
-<eda_label_pie.png, id=149, 411.03563pt x 431.81325pt>
-File: eda_label_pie.png Graphic file (type png)
-<use eda_label_pie.png>
-Package pdftex.def Info: eda_label_pie.png  used on input line 76.
-(pdftex.def)             Requested size: 120.95892pt x 127.07411pt.
-<eda_resolution.png, id=150, 598.03426pt x 399.74344pt>
-File: eda_resolution.png Graphic file (type png)
-<use eda_resolution.png>
-Package pdftex.def Info: eda_resolution.png  used on input line 80.
-(pdftex.def)             Requested size: 120.95892pt x 80.85pt.
-<eda_gps.png, id=151, 1505.625pt x 1292.83pt>
-File: eda_gps.png Graphic file (type png)
-<use eda_gps.png>
-Package pdftex.def Info: eda_gps.png  used on input line 82.
-(pdftex.def)             Requested size: 120.95892pt x 103.8625pt.
-<leguna_negative.png, id=154, 1129.21875pt x 1505.625pt>
+<figures/fig1_dataset_overview.png, id=147, 785.5749pt x 285.82785pt>
+File: figures/fig1_dataset_overview.png Graphic file (type png)
+<use figures/fig1_dataset_overview.png>
+Package pdftex.def Info: figures/fig1_dataset_overview.png  used on input line 
+75.
+(pdftex.def)             Requested size: 252.0pt x 91.68921pt.
+<leguna_negative.png, id=151, 1129.21875pt x 1505.625pt>
 File: leguna_negative.png Graphic file (type png)
 <use leguna_negative.png>
-Package pdftex.def Info: leguna_negative.png  used on input line 91.
+Package pdftex.def Info: leguna_negative.png  used on input line 84.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<leguna_positive.png, id=155, 1129.21875pt x 1505.625pt>
+<leguna_positive.png, id=152, 1129.21875pt x 1505.625pt>
 File: leguna_positive.png Graphic file (type png)
 <use leguna_positive.png>
-Package pdftex.def Info: leguna_positive.png  used on input line 93.
+Package pdftex.def Info: leguna_positive.png  used on input line 86.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<bus_negative.png, id=156, 1129.21875pt x 1505.625pt>
+<bus_negative.png, id=153, 1129.21875pt x 1505.625pt>
 File: bus_negative.png Graphic file (type png)
 <use bus_negative.png>
-Package pdftex.def Info: bus_negative.png  used on input line 100.
+Package pdftex.def Info: bus_negative.png  used on input line 93.
 (pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
-<bus_positive.png, id=157, 1129.21875pt x 1505.625pt>
+<bus_positive.png, id=154, 1210.5225pt x 2127.95pt>
 File: bus_positive.png Graphic file (type png)
 <use bus_positive.png>
-Package pdftex.def Info: bus_positive.png  used on input line 102.
-(pdftex.def)             Requested size: 100.79846pt x 134.39764pt.
+Package pdftex.def Info: bus_positive.png  used on input line 95.
+(pdftex.def)             Requested size: 100.79846pt x 177.18802pt.
 
 
-<annotation_1.jpeg, id=159, 943.525pt x 1254.6875pt>
+<annotation_1.jpeg, id=156, 943.525pt x 1254.6875pt>
 File: annotation_1.jpeg Graphic file (type jpg)
 <use annotation_1.jpeg>
-Package pdftex.def Info: annotation_1.jpeg  used on input line 115.
+Package pdftex.def Info: annotation_1.jpeg  used on input line 108.
 (pdftex.def)             Requested size: 88.20154pt x 117.28204pt.
-<annotation_2.jpeg, id=160, 939.51pt x 1250.6725pt>
+<annotation_2.jpeg, id=157, 939.51pt x 1250.6725pt>
 File: annotation_2.jpeg Graphic file (type jpg)
 <use annotation_2.jpeg>
-Package pdftex.def Info: annotation_2.jpeg  used on input line 117.
+Package pdftex.def Info: annotation_2.jpeg  used on input line 110.
 (pdftex.def)             Requested size: 88.20154pt x 117.40292pt.
 
-Underfull \hbox (badness 4467) in paragraph at lines 117--117
+Underfull \hbox (badness 4467) in paragraph at lines 110--110
 []\OT1/ptm/m/n/8 (b) |Un-safe/risky an-no-ta-
  []
 
-<annotation_3.png, id=161, 712.6625pt x 1254.6875pt>
+<annotation_3.png, id=158, 712.6625pt x 1254.6875pt>
 File: annotation_3.png Graphic file (type png)
 <use annotation_3.png>
-Package pdftex.def Info: annotation_3.png  used on input line 121.
+Package pdftex.def Info: annotation_3.png  used on input line 114.
 (pdftex.def)             Requested size: 88.20154pt x 155.2848pt.
 
-Underfull \hbox (badness 2111) in paragraph at lines 121--121
+Underfull \hbox (badness 2111) in paragraph at lines 114--114
 []\OT1/ptm/m/n/8 (c) |License-plate an-no-ta-
  []
 
-<annotation_4.png, id=162, 710.655pt x 1252.68pt>
+<annotation_4.png, id=159, 710.655pt x 1252.68pt>
 File: annotation_4.png Graphic file (type png)
 <use annotation_4.png>
-Package pdftex.def Info: annotation_4.png  used on input line 123.
+Package pdftex.def Info: annotation_4.png  used on input line 116.
 (pdftex.def)             Requested size: 88.20154pt x 155.45686pt.
 
 
-[2 <./eda_vehicle_label.png> <./eda_label_pie.png> <./eda_resolution.png> <./ed
-a_gps.png (PNG copy)> <./leguna_negative.png> <./leguna_positive.png> <./bus_ne
-gative.png> <./bus_positive.png>]
-Underfull \hbox (badness 1484) in paragraph at lines 137--138
+[2 <./figures/fig1_dataset_overview.png> <./leguna_negative.png> <./leguna_posi
+tive.png> <./bus_negative.png> <./bus_positive.png>]
+Underfull \hbox (badness 1484) in paragraph at lines 130--131
 []\OT1/ptm/m/n/10 The pro-posed method is a bi-nary image-classification
  []
 
-
-
-<arch_svm.png, id=191, 742.4538pt x 363.759pt>
+<arch_svm.png, id=181, 742.4538pt x 363.759pt>
 File: arch_svm.png Graphic file (type png)
 <use arch_svm.png>
-Package pdftex.def Info: arch_svm.png  used on input line 144.
+Package pdftex.def Info: arch_svm.png  used on input line 137.
 (pdftex.def)             Requested size: 252.0pt x 123.4655pt.
+
+
 
 
 [3 <./annotation_1.jpeg> <./annotation_2.jpeg> <./annotation_3.png> <./annotati
 on_4.png> <./arch_svm.png>]
-<arch_cnn.png, id=222, 574.3056pt x 697.6464pt>
+<arch_cnn.png, id=213, 574.3056pt x 697.6464pt>
 File: arch_cnn.png Graphic file (type png)
 <use arch_cnn.png>
-Package pdftex.def Info: arch_cnn.png  used on input line 180.
+Package pdftex.def Info: arch_cnn.png  used on input line 173.
 (pdftex.def)             Requested size: 252.0pt x 306.12439pt.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd)
 
-<cm_logistic.png, id=233, 361.35pt x 289.08pt>
-File: cm_logistic.png Graphic file (type png)
-<use cm_logistic.png>
-Package pdftex.def Info: cm_logistic.png  used on input line 260.
-(pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
-<cm_nb.png, id=234, 361.35pt x 289.08pt>
-File: cm_nb.png Graphic file (type png)
-<use cm_nb.png>
-Package pdftex.def Info: cm_nb.png  used on input line 262.
-(pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
-[]\OT1/ptm/m/n/8 (b) |Gaus-sian Naive
- []
-
-<cm_svm.png, id=235, 361.35pt x 289.08pt>
-File: cm_svm.png Graphic file (type png)
-<use cm_svm.png>
-Package pdftex.def Info: cm_svm.png  used on input line 264.
-(pdftex.def)             Requested size: 80.64185pt x 64.51086pt.
-<cm_cnn.png, id=236, 361.35pt x 289.08pt>
-File: cm_cnn.png Graphic file (type png)
-<use cm_cnn.png>
-Package pdftex.def Info: cm_cnn.png  used on input line 271.
-(pdftex.def)             Requested size: 181.4403pt x 145.15277pt.
-<curves_cnn.png, id=237, 867.24pt x 289.08pt>
-File: curves_cnn.png Graphic file (type png)
-<use curves_cnn.png>
-Package pdftex.def Info: curves_cnn.png  used on input line 278.
-(pdftex.def)             Requested size: 252.0pt x 83.99866pt.
-<roc_four_models.png, id=240, 462.528pt x 390.258pt>
-File: roc_four_models.png Graphic file (type png)
-<use roc_four_models.png>
-Package pdftex.def Info: roc_four_models.png  used on input line 288.
-(pdftex.def)             Requested size: 252.0pt x 212.6298pt.
+<figures/fig2_model_comparison.png, id=224, 930.1149pt x 366.77025pt>
+File: figures/fig2_model_comparison.png Graphic file (type png)
+<use figures/fig2_model_comparison.png>
+Package pdftex.def Info: figures/fig2_model_comparison.png  used on input line 
+256.
+(pdftex.def)             Requested size: 516.0pt x 203.48154pt.
+<figures/fig3_results_table.png, id=225, 854.59274pt x 248.97015pt>
+File: figures/fig3_results_table.png Graphic file (type png)
+<use figures/fig3_results_table.png>
+Package pdftex.def Info: figures/fig3_results_table.png  used on input line 263
+.
+(pdftex.def)             Requested size: 516.0pt x 150.32918pt.
+<figures/fig6_tradeoff.png, id=226, 568.7649pt x 365.32484pt>
+File: figures/fig6_tradeoff.png Graphic file (type png)
+<use figures/fig6_tradeoff.png>
+Package pdftex.def Info: figures/fig6_tradeoff.png  used on input line 287.
+(pdftex.def)             Requested size: 252.0pt x 161.86388pt.
+<figures/fig5_confusion_matrices.png, id=228, 806.17184pt x 410.4936pt>
+File: figures/fig5_confusion_matrices.png Graphic file (type png)
+<use figures/fig5_confusion_matrices.png>
+Package pdftex.def Info: figures/fig5_confusion_matrices.png  used on input lin
+e 297.
+(pdftex.def)             Requested size: 516.0pt x 262.7526pt.
 
 
 [4 <./arch_cnn.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[5 <./cm_logistic.png> <./cm_nb.png> <./cm_svm.png> <./cm_cnn.png> <./curves_cn
-n.png> <./roc_four_models.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 327--328
+
+Overfull \vbox (11.32463pt too high) has occurred while \output is active []
+
+
+
+[5 <./figures/fig2_model_comparison.png> <./figures/fig3_results_table.png>]
+<figures/fig3b_roc_test.png, id=263, 496.85625pt x 438.6789pt>
+File: figures/fig3b_roc_test.png Graphic file (type png)
+<use figures/fig3b_roc_test.png>
+Package pdftex.def Info: figures/fig3b_roc_test.png  used on input line 307.
+(pdftex.def)             Requested size: 371.52063pt x 328.02438pt.
+<figures/fig4_pr_curves.png, id=264, 496.85625pt x 438.6789pt>
+File: figures/fig4_pr_curves.png Graphic file (type png)
+<use figures/fig4_pr_curves.png>
+Package pdftex.def Info: figures/fig4_pr_curves.png  used on input line 314.
+(pdftex.def)             Requested size: 371.52063pt x 328.02438pt.
+<figures/fig8_roc_cv_deep.png, id=265, 496.85625pt x 438.6789pt>
+File: figures/fig8_roc_cv_deep.png Graphic file (type png)
+<use figures/fig8_roc_cv_deep.png>
+Package pdftex.def Info: figures/fig8_roc_cv_deep.png  used on input line 321.
+(pdftex.def)             Requested size: 252.0pt x 222.49162pt.
+
+Underfull \hbox (badness 2119) in paragraph at lines 322--322
+\OT1/ptm/m/n/8 Fig. 13.  []Cross-validated ROC curves for the deep mod-els on t
+he
+ []
+
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
 []\OT1/ptm/m/n/10 Gaussian Naive Bayes un-der-per-forms be-cause its
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 327--328
+Underfull \hbox (badness 5245) in paragraph at lines 335--336
 \OT1/ptm/m/n/10 conditional-independence as-sump-tion is poorly matched
  []
 
 
-Underfull \hbox (badness 4217) in paragraph at lines 327--328
+Underfull \hbox (badness 4217) in paragraph at lines 335--336
 \OT1/ptm/m/n/10 normalized fea-tures are cor-re-lated by con-struc-tion, so
  []
 
+<figures/fig7_technique_progression.png, id=266, 637.78275pt x 323.0469pt>
+File: figures/fig7_technique_progression.png Graphic file (type png)
+<use figures/fig7_technique_progression.png>
+Package pdftex.def Info: figures/fig7_technique_progression.png  used on input 
+line 341.
+(pdftex.def)             Requested size: 252.0pt x 127.64403pt.
+
+
+[6 <./figures/fig6_tradeoff.png>]
+
+LaTeX Warning: Text page 7 contains only floats.
+
+
+Overfull \vbox (6.24103pt too high) has occurred while \output is active []
 
 
 
 
-[6]
+LaTeX Warning: Text page 7 contains only floats.
 
+
+Overfull \vbox (6.24103pt too high) has occurred while \output is active []
+
+
+
+[7 <./figures/fig5_confusion_matrices.png> <./figures/fig3b_roc_test.png>]
+
+
+
+[8 <./figures/fig4_pr_curves.png> <./figures/fig8_roc_cv_deep.png> <./figures/f
+ig7_technique_progression.png>]
+
+
+
+[9]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1130,46 +1161,48 @@ Before submitting the final camera ready copy, remember to:
 
 
 
-[7] (./main.aux)
+
+
+[10
+
+] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C174077DEAA08B804FB65D82B045D784;3892.
+(rerunfilecheck)             Checksum: F68BE22D5A6E928499EEBD237004D160;3842.
  ) 
 Here is how much of TeX's memory you used:
  32599 strings out of 473190
- 760206 string characters out of 5715800
- 1243675 words of memory out of 5000000
- 55262 multiletter control sequences out of 15000+600000
- 600615 words of font info for 118 fonts, out of 8000000 for 9000
+ 761208 string characters out of 5715800
+ 1250331 words of memory out of 5000000
+ 55264 multiletter control sequences out of 15000+600000
+ 601047 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,12n,105p,1294b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,14n,105p,1400b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
 usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
 local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/te
-xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
-ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/font
-s/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/u
-rw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on main.pdf (7 pages, 19108050 bytes).
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texli
+ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
+025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
+ve/2025/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
+pe1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/ti
+mes/utmri8a.pfb>
+Output written on main.pdf (10 pages, 14229299 bytes).
 PDF statistics:
  427 PDF objects out of 1000 (max. 8388607)
- 343 compressed objects within 4 object streams
- 88 named destinations out of 1000 (max. 500000)
- 329 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 345 compressed objects within 4 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 324 words of extra memory for PDF output out of 10000 (max. 10000000)
 
