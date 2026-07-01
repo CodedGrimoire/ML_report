@@ -9,8 +9,7 @@
 \usepackage{url}
 \usepackage{xurl}
 \usepackage{pgfplots}
-\usepackage{dblfloatfix}
-\usepackage[section]{placeins}
+\usepackage{placeins}
 \usepackage[hidelinks]{hyperref}
 \usepackage[caption=false,font=footnotesize]{subfig}
 \pgfplotsset{compat=1.18}
@@ -313,48 +312,39 @@ Naive Bayes & 0.677 & 0.612 & 0.429 & 0.500 & 0.795 & 0.462 & 0.646 & 0.576 & 0.
 \subsection{Confusion Matrix Analysis}
 The confusion matrices in Fig.~\ref{fig:paper_confusion_matrices} report class-level outcomes for all nine models on the held-out test set. The rows show true labels and the columns show predicted labels, with safe representing normal passenger conditions and unsafe representing door-hanging risk.
 
-\begin{figure*}[!b]
+\begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{figures/fig05_confusion_matrices.png}
     \caption{Confusion-matrix grid for all nine reported models on the held-out test set.}
     \label{fig:paper_confusion_matrices}
 \end{figure*}
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/fig12_per_class_recall.png}
-    \caption{Safe- and unsafe-class recall for all models at the balanced operating point.}
-    \label{fig:per_class_recall}
-\end{figure}
-
 \subsection{ROC and AUC Analysis}
 AUC values are reported in Table~\ref{tab:test_results}. Figure~\ref{fig:paper_roc_test} shows held-out ROC curves for all reported models, while Fig.~\ref{fig:paper_pr_curves} shows the corresponding precision--recall curves.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=\linewidth]{figures/fig03_roc_test.png}
-    \caption{ROC curves for all nine reported models on the held-out test set.}
-    \label{fig:paper_roc_test}
-\end{figure}
+    \subfloat[Safe- and unsafe-class recall at the balanced operating point.\label{fig:per_class_recall}]{%
+        \includegraphics[width=0.64\textwidth]{figures/fig12_per_class_recall.png}}
+    \par\medskip
+    \subfloat[ROC curves.\label{fig:paper_roc_test}]{%
+        \includegraphics[width=0.48\textwidth]{figures/fig03_roc_test.png}}
+    \hfill
+    \subfloat[Precision--recall curves.\label{fig:paper_pr_curves}]{%
+        \includegraphics[width=0.48\textwidth]{figures/fig04_pr_curves.png}}
+    \caption{Class-wise recall and discrimination curves for all nine models on the held-out test set.}
+    \label{fig:classwise_curve_analysis}
+\end{figure*}
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/fig04_pr_curves.png}
-    \caption{Precision--recall curves for all nine reported models on the held-out test set.}
-    \label{fig:paper_pr_curves}
-\end{figure}
-
-\FloatBarrier
 \subsection{Error Analysis}
 False negatives are the most safety-critical error type because they correspond to unsafe/risky hanging-travel cases predicted as safe/normal. At the balanced operating point, the ensemble detects 90.5\% of unsafe test images. The high-recall threshold raises unsafe recall to 100\% with 69.2\% accuracy, while the max-recall threshold also retains 100\% recall but lowers accuracy to 41.5\%. These modes expose the expected safety tradeoff between missed unsafe cases and false alarms.
 
-\begin{table}[!t]
+\begin{table*}[!t]
 \centering
 \caption{Selectable operating points for the deployed ensemble.}
 \label{tab:operating_modes}
 \footnotesize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\linewidth}{!}{%
+\setlength{\tabcolsep}{7pt}
 \begin{tabular}{lccccc}
 \toprule
 \textbf{Mode} & \textbf{Threshold} & \textbf{Test Acc.} & \textbf{Unsafe R} & \textbf{Unsafe P} & \textbf{Spec.} \\
@@ -364,30 +354,38 @@ High recall & 0.035 & 0.692 & 1.000 & 0.512 & 0.545 \\
 Max recall & 0.013 & 0.415 & 1.000 & 0.356 & 0.136 \\
 \bottomrule
 \end{tabular}
-}
-\end{table}
+\end{table*}
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=\linewidth]{figures/fig06_tradeoff.png}
-    \caption{Accuracy, unsafe recall, and precision tradeoff for the ensemble threshold, including the deployed operating modes.}
-    \label{fig:paper_tradeoff}
-\end{figure}
+    \subfloat[Threshold tradeoff for accuracy, unsafe recall, and precision.\label{fig:paper_tradeoff}]{%
+        \includegraphics[width=0.48\textwidth]{figures/fig06_tradeoff.png}}
+    \hfill
+    \subfloat[Balanced, high-recall, and max-recall operating modes.\label{fig:operating_modes}]{%
+        \includegraphics[width=0.48\textwidth]{figures/fig11_operating_modes.png}}
+    \caption{Ensemble threshold selection and deployable operating modes on the held-out test set.}
+    \label{fig:operating_analysis}
+\end{figure*}
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/fig11_operating_modes.png}
-    \caption{Ensemble performance at the balanced, high-recall, and max-recall operating points.}
-    \label{fig:operating_modes}
-\end{figure}
-
-\section{Discussion}
+\FloatBarrier
+\twocolumn[\section{Discussion}]
 \subsection{Interpretation of Results}
 The retrained ensemble provides the strongest balanced operating point, reaching 86.2\% test accuracy, 90.5\% unsafe recall, 0.809 unsafe F1, 0.949 ROC-AUC, and 0.919 PR-AUC. The additional unsafe training data raises AUC beyond the previous 0.929 result and substantially improves balanced unsafe recall.
 
 Among individual deep models, ConvNeXt-Tiny provides 85.7\% unsafe recall and 0.944 AUC, while ResNet50 gives 84.6\% accuracy and the highest unsafe precision at 78.9\%. Among classical models, SVM remains the strongest HOG baseline, reaching 84.6\% accuracy, 76.2\% unsafe recall, and 0.863 AUC.
 
 Gaussian Naive Bayes underperforms because its conditional-independence assumption is poorly matched to HOG descriptors. Neighboring gradient bins and block-normalized features are correlated by construction, so treating them as independent weakens the model's ability to distinguish visually similar safe/normal and unsafe/risky scenes.
+
+The train-to-test gaps in Table~\ref{tab:generalization} range from 11.3 to 20.7 percentage points. SVM has the smallest gap, while EfficientNet-B0 has the largest. These gaps indicate that the expanded but still modest set of unique originals does not eliminate overfitting, even though the ensemble improves final discrimination.
+
+For this application, false negatives are more consequential than ordinary classification errors because they correspond to missed risky travel conditions. Precision and overall accuracy remain relevant for reducing false alarms, but a safety-oriented monitoring system should prioritize reducing missed unsafe cases while maintaining acceptable discrimination across normal and risky scenes.
+
+\subsection{Limitations}
+The main limitation of this study is the limited number of unique source images. The updated dataset contains 432 labeled originals with 140 unsafe cases, which is still not enough to fully cover the diversity of vehicle layouts, camera viewpoints, passenger postures, weather, illumination, and traffic environments encountered in deployment.
+
+The neural models also depend on training-time augmentation to increase effective sample diversity. Augmentation improves robustness to controlled transformations, but it does not replace additional real images containing natural occlusion, motion blur, dense crowding, and non-standard bus or leguna structures. These factors can make unsafe/risky positive cases difficult to distinguish from visually cluttered safe/normal scenes.
+
+The current system is limited to image-level binary classification. It does not localize hanging passengers, estimate crowd density, track passengers across frames, or evaluate performance on large-scale real-time video streams. Roadside transport images may also include identifiable people, license plates, and location cues, so deployment would require anonymization and data-governance safeguards. The method should therefore be interpreted as a baseline for visual safety classification rather than an operational monitoring system.
 
 \begin{table}[!t]
 \centering
@@ -414,32 +412,18 @@ Naive Bayes & 0.836 & 0.164 & 0.738 & 0.262 & 0.677 & 0.323 & 0.429 \\
 }
 \end{table}
 
-The train-to-test gaps in Table~\ref{tab:generalization} range from 11.3 to 20.7 percentage points. SVM has the smallest gap, while EfficientNet-B0 has the largest. These gaps indicate that the expanded but still modest set of unique originals does not eliminate overfitting, even though the ensemble improves final discrimination.
-
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=\linewidth]{figures/fig07_train_val_test_error.png}
-    \caption{Train, validation, and test error for all nine models after retraining.}
-    \label{fig:generalization_error}
-\end{figure}
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/fig08_generalization_gap.png}
-    \caption{Train-to-test generalization gap for all nine models.}
-    \label{fig:generalization_gap}
+    \subfloat[Train, validation, and test error.\label{fig:generalization_error}]{%
+        \includegraphics[width=\linewidth]{figures/fig07_train_val_test_error.png}}
+    \par\smallskip
+    \subfloat[Train-to-test generalization gap.\label{fig:generalization_gap}]{%
+        \includegraphics[width=\linewidth]{figures/fig08_generalization_gap.png}}
+    \caption{Generalization behavior of all nine models after retraining.}
+    \label{fig:generalization_analysis}
 \end{figure}
 
 \FloatBarrier
-For this application, false negatives are more consequential than ordinary classification errors because they correspond to missed risky travel conditions. Precision and overall accuracy remain relevant for reducing false alarms, but a safety-oriented monitoring system should prioritize reducing missed unsafe cases while maintaining acceptable discrimination across normal and risky scenes.
-
-\subsection{Limitations}
-The main limitation of this study is the limited number of unique source images. The updated dataset contains 432 labeled originals with 140 unsafe cases, which is still not enough to fully cover the diversity of vehicle layouts, camera viewpoints, passenger postures, weather, illumination, and traffic environments encountered in deployment.
-
-The neural models also depend on training-time augmentation to increase effective sample diversity. Augmentation improves robustness to controlled transformations, but it does not replace additional real images containing natural occlusion, motion blur, dense crowding, and non-standard bus or leguna structures. These factors can make unsafe/risky positive cases difficult to distinguish from visually cluttered safe/normal scenes.
-
-The current system is limited to image-level binary classification. It does not localize hanging passengers, estimate crowd density, track passengers across frames, or evaluate performance on large-scale real-time video streams. Roadside transport images may also include identifiable people, license plates, and location cues, so deployment would require anonymization and data-governance safeguards. The method should therefore be interpreted as a baseline for visual safety classification rather than an operational monitoring system.
-
 \section{Conclusion and Future Work}
 This paper presented a computer-vision and machine-learning pipeline for detecting unsafe hanging travel in Dhaka public transport. The task was formulated as binary image classification over safe/normal and unsafe/risky passenger conditions. A localized bus and leguna dataset was prepared through cleaning, annotation, preprocessing, and augmentation, with HOG features used for classical models and RGB inputs used for CNN-based classification.
 
